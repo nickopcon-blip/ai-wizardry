@@ -143,7 +143,25 @@ input:focus,textarea:focus{outline:none;border-color:var(--neon)}
 @media (max-width:820px){.contactgrid{grid-template-columns:1fr}}
 .sig{color:var(--gold);letter-spacing:.9em;padding-left:.9em;text-align:center;margin:2rem 0}
 footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;padding:2rem 1rem 3rem;border-top:1px solid rgba(139,92,246,.12)}
+
+/* ── theme toggle ── */
+.tmode{width:1.85rem;height:1.85rem;border-radius:50%;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);color:var(--gold);font-size:.78rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:all .25s}
+.tmode:hover{border-color:rgba(34,211,238,.55)}
+/* ── light mode ── */
+html[data-theme="light"]{--void:#f5f4fb;--panel:#ffffff;--ink:#241f3d;--dim:#4e4a70;--faint:#8a87ab;--gold:#b45309;--neon:#0e7490;--spark:#6d28d9}
+html[data-theme="light"] body{background-image:radial-gradient(ellipse 55% 38% at 18% 8%,rgba(109,40,217,.09),transparent),radial-gradient(ellipse 45% 35% at 85% 18%,rgba(14,116,144,.07),transparent),radial-gradient(ellipse 50% 40% at 70% 92%,rgba(109,40,217,.08),transparent)}
+html[data-theme="light"] body::after{display:none}
+html[data-theme="light"] body::before{background-image:linear-gradient(rgba(109,40,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.07) 1px,transparent 1px)}
+html[data-theme="light"] .topnav{background:linear-gradient(180deg,rgba(245,244,251,.97),rgba(245,244,251,.8) 80%,transparent);border-bottom:1px solid rgba(109,40,217,.14)}
+html[data-theme="light"] .navlinks a{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
+html[data-theme="light"] .card{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
+html[data-theme="light"] .tmode{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
+html[data-theme="light"] input,html[data-theme="light"] textarea{background:#fff;border-color:rgba(109,40,217,.35)}
+html[data-theme="light"] .okmsg{color:#15803d}
+html[data-theme="light"] .offer{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.25)}
+html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-color:rgba(14,116,144,.45)}
 </style>
+<script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
 </head>
 <body>
 <nav class="topnav" aria-label="Site">
@@ -151,11 +169,8 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
     <a class="navbrand" href="index.html"><span class="nb">✦</span>AI WIZARDRY</a>
     <div class="navlinks">
       <a href="#magic">The Magic</a>
-      <a href="#work">Work With Me</a>
-      <a href="#office-hours">Office Hours</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a class="cta" href="book.html">Book a Free Call</a>
+      <a href="connect.html">Connect</a>
+      <button class="tmode" id="themeBtn" aria-label="Switch theme">☀</button>
     </div>
   </div>
 </nav>
@@ -169,8 +184,8 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
       <p class="lede">The people getting ahead with AI aren't smarter than you — they just learned the spells. I coach regular people and business owners from "I know I should be using this" to running automations that work while they sleep.</p>
       <p class="quote">"Any sufficiently advanced technology is indistinguishable from magic." — <b>Arthur C. Clarke</b></p>
       <div class="ctarow">
-        <a class="btn gold" href="book.html">Book a Free 30-Min Alignment Call ✦</a>
-        <a class="btn neon" href="#office-hours">Join Our Free Monthly AI Office Hours</a>
+        <a class="btn gold" href="connect.html">Book a Free 30-Min Alignment Call ✦</a>
+        <a class="btn neon" href="office-hours.html">Join Our Free Monthly AI Office Hours</a>
       </div>
     </div>
     <div class="term" aria-hidden="true">
@@ -189,33 +204,17 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
     </div>
   </section>
 
-  <!-- THE MAGIC -->
-  <section id="magic">
-    <div class="flag">✦ THE MAGIC ✦</div>
-    <h2 style="text-align:center">What the magic actually looks like</h2>
-    <p class="lede" style="margin:0 auto;text-align:center">Not hype. Not someday. These are the kinds of spells you can be running within weeks:</p>
-    <div class="cards">
-      <div class="card"><div class="ic">✉️</div><h3>An inbox that sorts itself</h3><p>AI reads every email, triages what matters, drafts the replies. You just decide.</p></div>
-      <div class="card"><div class="ic">🔁</div><h3>Follow-ups that never slip</h3><p>Every lead chased, every promise tracked — nothing falls through the cracks.</p></div>
-      <div class="card"><div class="ic">🤖</div><h3>An assistant that never sleeps</h3><p>On your phone, answering questions, setting reminders, remembering everything you tell it.</p></div>
-      <div class="card"><div class="ic">⚙️</div><h3>Workflows that run without you</h3><p>The twenty little tasks that eat your week — payroll prep, follow-ups, status checks — automated.</p></div>
-      <div class="card"><div class="ic">📝</div><h3>Meetings that take their own notes</h3><p>Every call transcribed, summarized, and turned into action items — automatically.</p></div>
-      <div class="card"><div class="ic">✍️</div><h3>Content at conjuring speed</h3><p>Drafts, edits, repurposing — hours of writing collapsed into minutes of directing.</p></div>
-    </div>
-    <p class="truth">None of this is theoretical — <b>every one of these runs in my own businesses today.</b></p>
-  </section>
-
   <!-- WORK WITH ME -->
-  <section id="work" class="alt">
-    <div class="flag">✦ WORK WITH ME ✦</div>
-    <h2 style="text-align:center">Three ways in</h2>
+  <section id="work">
+    <div class="flag">✦ BEGIN THE BUILDOUT ✦</div>
+    <h2 style="text-align:center">Begin your buildout</h2>
     <div class="offers">
       <div class="offer">
         <div class="tag">Free · 30 minutes</div>
         <h3>The Alignment Call</h3>
         <div class="price">$0 · no strings</div>
         <p>Where does AI actually fit your life or business? We map it together — what to automate first, what tools fit you, what's worth your time. If working together makes sense, we'll both know.</p>
-        <a class="btn ghost" href="book.html">Choose Your Time ✦</a>
+        <a class="btn ghost" href="connect.html">Choose Your Time ✦</a>
       </div>
       <div class="offer feat">
         <div class="tag">1:1 Coaching</div>
@@ -230,7 +229,7 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
           <li>Use AI safely — privacy, accuracy, guardrails</li>
         </ul>
         <p style="font-size:.85rem;color:var(--faint);margin-top:.8rem">Beyond your first 40 hours, we shift to a monthly retainer or a project rate — shaped by the scope and complexity of what we're building.</p>
-        <a class="btn gold" href="book.html">Start With the Free Call ✦</a>
+        <a class="btn gold" href="connect.html">Start With the Free Call ✦</a>
       </div>
       <div class="offer">
         <div class="tag">Fractional Operations · AI Fleet</div>
@@ -243,75 +242,28 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
           <li>Remote build-outs or in-person intensives — both paths, wherever you are</li>
         </ul>
         <p style="font-size:.85rem;color:var(--faint);margin-top:.8rem">Not sure which path fits? That's what the free call is for.</p>
-        <a class="btn ghost" href="book.html">Let's Begin With the Free Alignment Call ✦</a>
+        <a class="btn ghost" href="connect.html">Let's Begin With the Free Alignment Call ✦</a>
       </div>
     </div>
   </section>
 
-  <!-- OFFICE HOURS -->
-  <section id="office-hours">
-    <div class="flag">✦ FREE · MONTHLY ✦</div>
-    <div class="ohwrap">
-      <div>
-        <h2><span class="glyph">🧙</span> AI Office Hours</h2>
-        <div class="when">1st Monday of every month · 3:30pm PT / 6:30pm ET · Live on video</div>
-        <p class="lede">Bring your questions, your stuck automations, your "wait, can AI do this?" ideas. A live group call where we work through them together — beginners welcome, no question too basic. Free, every month.</p>
-      </div>
-      <div class="card" style="padding:1.8rem 1.5rem">
-        <h3 style="font-family:var(--display);font-weight:500;letter-spacing:.04em;margin-bottom:.2rem">Save your seat</h3>
-        <form id="ohform" novalidate>
-          <label for="oh-name">Your name *</label>
-          <input id="oh-name" type="text" autocomplete="name" maxlength="80" required>
-          <label for="oh-email">Email — your invite lands here *</label>
-          <input id="oh-email" type="email" autocomplete="email" maxlength="120" required>
-          <div class="err" id="oh-err" style="display:none"></div>
-          <div class="okmsg" id="oh-ok" style="display:none">✦ You're in. The calendar invite — with the call link — is on its way to your inbox.</div>
-          <button class="btn gold" id="oh-btn" type="submit" style="margin-top:1.3rem;width:100%">Save My Seat ✦</button>
-          <div class="fineprint">Your invite &amp; call link arrive by email. No spam, ever.</div>
-        </form>
-      </div>
+  <!-- THE MAGIC -->
+  <section id="magic" class="alt">
+    <div class="flag">✦ THE MAGIC ✦</div>
+    <h2 style="text-align:center">What the magic actually looks like</h2>
+    <p class="lede" style="margin:0 auto;text-align:center">Not hype. Not someday. These are the kinds of spells you can be running within weeks:</p>
+    <div class="cards">
+      <div class="card"><div class="ic">✉️</div><h3>An inbox that sorts itself</h3><p>AI reads every email, triages what matters, drafts the replies. You just decide.</p></div>
+      <div class="card"><div class="ic">🔁</div><h3>Follow-ups that never slip</h3><p>Every lead chased, every promise tracked — nothing falls through the cracks.</p></div>
+      <div class="card"><div class="ic">🤖</div><h3>An assistant that never sleeps</h3><p>On your phone, answering questions, setting reminders, remembering everything you tell it.</p></div>
+      <div class="card"><div class="ic">⚙️</div><h3>Workflows that run without you</h3><p>The twenty little tasks that eat your week — payroll prep, follow-ups, status checks — automated.</p></div>
+      <div class="card"><div class="ic">📝</div><h3>Meetings that take their own notes</h3><p>Every call transcribed, summarized, and turned into action items — automatically.</p></div>
+      <div class="card"><div class="ic">✍️</div><h3>Content at conjuring speed</h3><p>Drafts, edits, repurposing — hours of writing collapsed into minutes of directing.</p></div>
     </div>
+    <p class="truth">None of this is theoretical — <b>every one of these runs in my own businesses today.</b></p>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="alt">
-    <div class="flag">✦ THE WIZARD BEHIND THE CURTAIN ✦</div>
-    <div class="aboutgrid">
-      <div class="sigil">🧙‍♂️</div>
-      <div class="about">
-        <h2>Hey, I'm Nick.</h2>
-        <p>I'm an operator, builder, and scaler. I run operations across multiple businesses — e-commerce, education, real estate lead generation — and every one of them runs on an <b>AI stack custom-built to that specific business</b>, not something premade that only partly meets the needs: email triage, task management, payroll, meeting notes, and an AI brain that tracks all of it — growing in awareness and intelligence around the business, an asset for scaling if desired.</p>
-        <p>That's the difference. <b>No theory here — these systems run every single day, in real businesses</b> — the whole operation run, monitored, and approved from an iPhone. The same automations that hand back hours every week are the ones we'll build for yours, at whatever level you're starting from.</p>
-        <p>A first conversation with AI, or someone to take the keys to your operations — either way, it starts with one free call.</p>
-        <div class="ctarow"><a class="btn gold" href="book.html">Book the Free Alignment Call ✦</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="flag">✦ CONTACT ✦</div>
-    <div class="contactgrid">
-      <div>
-        <h2>Send a message</h2>
-        <p class="lede">Questions, ideas, "is this even possible?" — all of it welcome. It comes straight to my inbox and I reply personally.</p>
-      </div>
-      <div class="card" style="padding:1.8rem 1.5rem">
-        <form id="cform" novalidate>
-          <label for="c-name">Your name *</label>
-          <input id="c-name" type="text" autocomplete="name" maxlength="80" required>
-          <label for="c-email">Email *</label>
-          <input id="c-email" type="email" autocomplete="email" maxlength="120" required>
-          <label for="c-msg">Your message *</label>
-          <textarea id="c-msg" rows="5" maxlength="3000" required></textarea>
-          <div class="err" id="c-err" style="display:none"></div>
-          <div class="okmsg" id="c-ok" style="display:none">✦ Received. It's in my inbox — I'll reply personally.</div>
-          <button class="btn ghost" id="c-btn" type="submit" style="margin-top:1.3rem">Send It ✦</button>
-        </form>
-      </div>
-    </div>
-    <div class="sig">✦ ✧ ✦</div>
-  </section>
+  <div class="sig">✦ ✧ ✦</div>
 </main>
 
 <footer>© 2026 · AI WIZARDRY · ALL TIMES PACIFIC</footer>
@@ -322,42 +274,18 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
   var API_MSG = 'https://64-181-232-186.nip.io/webhook/gateway-connect-7d2f91';
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-  document.getElementById('ohform').addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('oh-name').value.trim();
-    var email = document.getElementById('oh-email').value.trim();
-    var err = document.getElementById('oh-err'), ok = document.getElementById('oh-ok'), btn = document.getElementById('oh-btn');
-    ok.style.display='none';
-    if (!name || !EMAIL_RE.test(email)){ err.textContent='A name and a real email — the invite needs somewhere to land.'; err.style.display=''; return; }
-    err.style.display='none'; btn.disabled=true; btn.textContent='Casting…';
-    fetch(API_REG, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({name:name,email:email,event:'ai'}) })
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        btn.disabled=false; btn.textContent='Save My Seat ✦';
-        if (j.ok){ ok.style.display=''; document.getElementById('ohform').reset(); }
-        else { err.textContent='Something slipped — try once more.'; err.style.display=''; }
-      })
-      .catch(function(){ btn.disabled=false; btn.textContent='Save My Seat ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
-  });
 
-  document.getElementById('cform').addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('c-name').value.trim();
-    var email = document.getElementById('c-email').value.trim();
-    var msg = document.getElementById('c-msg').value.trim();
-    var err = document.getElementById('c-err'), ok = document.getElementById('c-ok'), btn = document.getElementById('c-btn');
-    ok.style.display='none';
-    if (!name || !EMAIL_RE.test(email) || !msg){ err.textContent='Name, a real email, and a message — those three and it flies.'; err.style.display=''; return; }
-    err.style.display='none'; btn.disabled=true; btn.textContent='Sending…';
-    fetch(API_MSG, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({name:name,email:email,phone:'',message:'[AI Wizardry] '+msg}) })
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        btn.disabled=false; btn.textContent='Send It ✦';
-        if (j.ok){ ok.style.display=''; document.getElementById('cform').reset(); }
-        else { err.textContent='Something slipped — try once more.'; err.style.display=''; }
-      })
-      .catch(function(){ btn.disabled=false; btn.textContent='Send It ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
-  });
+  var tb = document.getElementById('themeBtn');
+  if (tb){
+    var setIcon = function(){ tb.textContent = document.documentElement.getAttribute('data-theme')==='light' ? '\u263e' : '\u2600'; };
+    setIcon();
+    tb.addEventListener('click', function(){
+      var el = document.documentElement, light = el.getAttribute('data-theme')==='light';
+      if (light) el.removeAttribute('data-theme'); else el.setAttribute('data-theme','light');
+      try{ localStorage.setItem('aiw-theme', light ? 'dark' : 'light'); }catch(e){}
+      setIcon();
+    });
+  }
 })();
 </script>
 </body>
