@@ -98,8 +98,10 @@ input:focus,textarea:focus{outline:none;border-color:var(--neon)}
 footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;padding:2rem 1rem 3rem;border-top:1px solid rgba(139,92,246,.12)}
 
 /* ── theme toggle ── */
-.tmode{width:1.85rem;height:1.85rem;border-radius:50%;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);color:var(--gold);font-size:.78rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:all .25s}
-.tmode:hover{border-color:rgba(34,211,238,.55)}
+.tmode{width:1.85rem;height:1.85rem;border-radius:50%;border:none;background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;font-size:.78rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:all .25s;box-shadow:0 0 16px -3px rgba(251,191,36,.85);animation:tmodeglow 2.6s ease-in-out infinite}
+.tmode:hover{box-shadow:0 0 26px -3px rgba(251,191,36,1)}
+@keyframes tmodeglow{0%,100%{box-shadow:0 0 12px -3px rgba(251,191,36,.7)}50%{box-shadow:0 0 22px -2px rgba(251,191,36,1)}}
+html[data-theme="light"] .tmode{animation:none;box-shadow:none;background:rgba(255,255,255,.8);border:1px solid rgba(109,40,217,.35);color:#241f3d}
 /* ── light mode ── */
 html[data-theme="light"]{--void:#f5f4fb;--panel:#ffffff;--ink:#241f3d;--dim:#4e4a70;--faint:#8a87ab;--gold:#b45309;--neon:#0e7490;--spark:#6d28d9}
 html[data-theme="light"] body{background-image:radial-gradient(ellipse 55% 38% at 18% 8%,rgba(109,40,217,.09),transparent),radial-gradient(ellipse 45% 35% at 85% 18%,rgba(14,116,144,.07),transparent),radial-gradient(ellipse 50% 40% at 70% 92%,rgba(109,40,217,.08),transparent)}
@@ -108,7 +110,6 @@ html[data-theme="light"] body::before{background-image:linear-gradient(rgba(109,
 html[data-theme="light"] .topnav{background:linear-gradient(180deg,rgba(245,244,251,.97),rgba(245,244,251,.8) 80%,transparent);border-bottom:1px solid rgba(109,40,217,.14)}
 html[data-theme="light"] .navlinks a{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
 html[data-theme="light"] .card{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
-html[data-theme="light"] .tmode{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
 html[data-theme="light"] input,html[data-theme="light"] textarea{background:#fff;border-color:rgba(109,40,217,.35)}
 html[data-theme="light"] .okmsg{color:#15803d}
 
