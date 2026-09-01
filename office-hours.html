@@ -125,6 +125,8 @@ html[data-theme="light"] .okmsg{color:#15803d}
 .ohlist li b{color:var(--ink);font-weight:600}
 .ohgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:2.4rem;align-items:start;margin-top:2rem}
 @media (max-width:820px){.ohgrid{grid-template-columns:1fr}}
+.silh-wiz{color:transparent;text-shadow:0 0 0 var(--spark);filter:drop-shadow(0 0 18px rgba(139,92,246,.6));display:inline-block}
+.silh-bot{color:transparent;text-shadow:0 0 0 var(--neon);filter:drop-shadow(0 0 16px rgba(34,211,238,.55));display:inline-block}
 </style>
 <script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
 </head>
@@ -143,7 +145,7 @@ html[data-theme="light"] .okmsg{color:#15803d}
 
 <main>
   <div class="eyebrow">✦ Free · Monthly · Live</div>
-  <h1>🧙 AI Office Hours</h1>
+  <h1><span class="silh-bot" style="font-size:1.3em">🤖</span> AI Office Hours</h1>
   <div class="when">1st Monday of every month · 3:30pm PT / 6:30pm ET · Live on video</div>
   <p class="lede">A free, live group call — one hour, once a month, cameras optional. Bring your questions, your stuck automations, your "wait, can AI do this?" ideas, and we work through them together on screen, in real time.</p>
 
