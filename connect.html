@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connect · AI Wizardry</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🤖</text></svg>'>
+<meta name="description" content="Connect — book a free 30-minute Alignment Call, or drop a question without an appointment. No pitch, no strings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --void:#05060e; --panel:#0b0e1e; --ink:#e8ecff; --dim:#98a0c3; --faint:#565e85;
+  --spark:#8b5cf6; --neon:#22d3ee; --gold:#fbbf24;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --maxw:880px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-weight:300;font-size:1.02rem;line-height:1.7;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse 55% 38% at 18% 8%,rgba(139,92,246,.16),transparent),
+    radial-gradient(ellipse 45% 35% at 85% 18%,rgba(34,211,238,.10),transparent),
+    radial-gradient(ellipse 50% 40% at 70% 92%,rgba(139,92,246,.12),transparent);
+  background-attachment:fixed;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.35;z-index:0;
+  background-image:
+    linear-gradient(rgba(139,92,246,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(139,92,246,.05) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 20%,#000 30%,transparent 80%)}
+body::after{content:'';position:fixed;inset:-10%;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(1px 1px at 15% 20%, rgba(232,236,255,.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 38% 68%, rgba(34,211,238,.7) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 61% 14%, rgba(255,255,255,.75) 50%, transparent 51%),
+    radial-gradient(1px 1px at 79% 45%, rgba(251,191,36,.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 90% 80%, rgba(232,236,255,.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 25% 88%, rgba(139,92,246,.7) 50%, transparent 51%);
+  background-size:640px 640px;
+  animation:aiw-twinkle 7s ease-in-out infinite alternate}
+@keyframes aiw-twinkle{from{opacity:.55}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){body::after{animation:none}}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(180deg,rgba(5,6,14,.95),rgba(5,6,14,.7) 80%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(139,92,246,.15)}
+.navwrap{max-width:1160px;margin:0 auto;padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.7rem 1.2rem;flex-wrap:wrap}
+.navbrand{font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.2em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.navbrand .nb{color:var(--gold);margin-right:.5rem}
+.navlinks{display:flex;gap:.55rem;flex-wrap:wrap;justify-content:center}
+.navlinks a{font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:.45rem .9rem;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);border-radius:2rem;transition:all .25s}
+.navlinks a:hover{color:var(--neon);border-color:rgba(34,211,238,.55)}
+@media (max-width:760px){.navwrap{justify-content:center}.navlinks{gap:.35rem}.navlinks a{font-size:.55rem;padding:.32rem .55rem;letter-spacing:.07em}}
+
+main{max-width:var(--maxw);margin:0 auto;padding:9rem 1.4rem 4.5rem;position:relative;z-index:2}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:.02em;margin-bottom:.5rem;
+  background:linear-gradient(100deg,var(--neon) 5%,var(--ink) 40%,var(--spark) 75%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.session{font-family:var(--mono);color:var(--neon);font-size:.9rem;letter-spacing:.06em;margin-bottom:.5rem}
+.lede{color:var(--dim);max-width:40rem}
+
+.card{margin-top:2.4rem;background:rgba(11,14,30,.8);border:1px solid rgba(139,92,246,.3);border-radius:12px;padding:2rem 1.6rem;backdrop-filter:blur(4px)}
+.bookgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:1.8rem;align-items:start}
+@media (max-width:700px){.bookgrid{grid-template-columns:1fr}}
+.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
+.calhead .mt{font-family:var(--display);font-weight:500;letter-spacing:.1em;font-size:1.02rem}
+.calnav{background:none;border:1px solid rgba(139,92,246,.45);color:var(--ink);border-radius:5px;font-size:1.05rem;line-height:1;padding:.3rem .7rem;cursor:pointer}
+.calnav:hover{border-color:var(--neon)}
+.calnav:disabled{opacity:.22;cursor:default}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);font-family:var(--mono);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:.35rem}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:.32rem}
+.cald{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.8rem;border-radius:7px;border:1px solid transparent;color:var(--faint);user-select:none}
+.cald.av{color:var(--ink);border-color:rgba(139,92,246,.45);cursor:pointer;background:rgba(139,92,246,.1)}
+.cald.av:hover{border-color:rgba(34,211,238,.7)}
+.cald.sel{background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;border-color:transparent;font-weight:600}
+.cald.today{outline:1px dashed rgba(251,191,36,.55);outline-offset:-1px}
+.calload{font-family:var(--mono);font-size:.6rem;color:var(--faint);text-align:center;margin-top:.6rem;min-height:1em}
+.timescol h4{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--spark);margin-bottom:.6rem}
+.timescol .hint{color:var(--faint);font-style:italic;font-size:.92rem}
+.times2{display:flex;flex-wrap:wrap;gap:.5rem}
+.tbtn2{font-family:var(--mono);font-size:.74rem;padding:.55rem .85rem;border:1px solid rgba(34,211,238,.45);color:var(--neon);background:rgba(11,14,30,.5);border-radius:5px;cursor:pointer}
+.tbtn2:hover{border-color:rgba(251,191,36,.6)}
+.tbtn2.sel{background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;border-color:transparent;font-weight:600}
+.picksum{font-family:var(--mono);color:var(--gold);font-size:.92rem;letter-spacing:.04em;margin:1.6rem 0 .2rem;min-height:1.3em}
+.detaildim{opacity:.45;pointer-events:none}
+
+label{display:block;font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:1.2rem 0 .4rem}
+input,textarea{width:100%;background:rgba(5,6,14,.8);border:1px solid rgba(139,92,246,.4);border-radius:5px;color:var(--ink);font-family:var(--body);font-size:1rem;padding:.7rem .9rem}
+input:focus,textarea:focus{outline:none;border-color:var(--neon)}
+.btn{display:inline-block;font-family:var(--mono);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;border:none;border-radius:5px;padding:1rem 1.8rem;cursor:pointer;margin-top:1.6rem;transition:all .3s;font-weight:500}
+.btn:hover{box-shadow:0 0 30px -8px rgba(251,191,36,.85)}
+.btn:disabled{opacity:.5;cursor:wait}
+.msg{color:var(--dim);font-style:italic}
+.err{color:#ff8a8a}
+.success h2{font-family:var(--display);font-weight:500;font-size:1.7rem;margin-bottom:.8rem;color:var(--gold)}
+.success .when{font-family:var(--mono);font-size:1.05rem;color:var(--neon);margin:.6rem 0 1rem;letter-spacing:.04em}
+.sig{color:var(--gold);letter-spacing:.9em;padding-left:.9em;text-align:center;margin-top:3rem}
+footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;padding:2rem 1rem 3rem;border-top:1px solid rgba(139,92,246,.12)}
+
+/* ── theme toggle ── */
+.tmode{width:1.85rem;height:1.85rem;border-radius:50%;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);color:var(--gold);font-size:.78rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:all .25s}
+.tmode:hover{border-color:rgba(34,211,238,.55)}
+/* ── light mode ── */
+html[data-theme="light"]{--void:#f5f4fb;--panel:#ffffff;--ink:#241f3d;--dim:#4e4a70;--faint:#8a87ab;--gold:#b45309;--neon:#0e7490;--spark:#6d28d9}
+html[data-theme="light"] body{background-image:radial-gradient(ellipse 55% 38% at 18% 8%,rgba(109,40,217,.09),transparent),radial-gradient(ellipse 45% 35% at 85% 18%,rgba(14,116,144,.07),transparent),radial-gradient(ellipse 50% 40% at 70% 92%,rgba(109,40,217,.08),transparent)}
+html[data-theme="light"] body::after{display:none}
+html[data-theme="light"] body::before{background-image:linear-gradient(rgba(109,40,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.07) 1px,transparent 1px)}
+html[data-theme="light"] .topnav{background:linear-gradient(180deg,rgba(245,244,251,.97),rgba(245,244,251,.8) 80%,transparent);border-bottom:1px solid rgba(109,40,217,.14)}
+html[data-theme="light"] .navlinks a{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
+html[data-theme="light"] .card{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
+html[data-theme="light"] .tmode{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
+html[data-theme="light"] input,html[data-theme="light"] textarea{background:#fff;border-color:rgba(109,40,217,.35)}
+html[data-theme="light"] .okmsg{color:#15803d}
+html[data-theme="light"] .cald.av{background:rgba(109,40,217,.08)}
+html[data-theme="light"] .tbtn2{background:rgba(255,255,255,.85)}
+html[data-theme="light"] .calnav{border-color:rgba(109,40,217,.4)}
+html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-color:rgba(14,116,144,.45)}
+
+.flag{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin:4.5rem auto 1.2rem}
+.h2c{font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,3vw,1.8rem);letter-spacing:.04em;margin-bottom:.6rem;text-align:center}
+.okmsg{color:#6ee7a0;font-family:var(--mono);font-size:.85rem;margin-top:1rem;letter-spacing:.04em}
+.sigilrow{font-size:3rem;text-align:center;margin-bottom:.6rem}
+.aboutwrap{max-width:44rem;margin:0 auto}
+.aboutwrap p{color:var(--dim);margin-bottom:1rem}
+.aboutwrap p b{color:var(--ink);font-weight:600}
+</style>
+<script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
+</head>
+<body>
+<nav class="topnav" aria-label="Site">
+  <div class="navwrap">
+    <a class="navbrand" href="index.html"><span class="nb">✦</span>AI WIZARDRY</a>
+    <div class="navlinks">
+      <a href="index.html#magic">The Magic</a>
+      <a href="connect.html">Connect</a>
+      <button class="tmode" id="themeBtn" aria-label="Switch theme">☀</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="eyebrow">✦ Free Call · Questions · All Of It</div>
+  <h1 id="book">Connect</h1>
+  <div class="session">Alignment Call — 30 minutes, free · all times Pacific</div>
+  <p class="lede">Pick a day, pick a time, confirm. Change either at any moment just by clicking again — nothing locks until you confirm. We'll map where AI fits your life or business, and whether working together makes sense.</p>
+
+  <div class="card" id="widget">
+    <div id="bookUI">
+      <div class="bookgrid">
+        <div>
+          <div class="calhead">
+            <button class="calnav" id="prevM" aria-label="Previous month">‹</button>
+            <div class="mt" id="calTitle">…</div>
+            <button class="calnav" id="nextM" aria-label="Next month">›</button>
+          </div>
+          <div class="dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div class="calgrid" id="calGrid"></div>
+          <div class="calload" id="calLoad"></div>
+        </div>
+        <div class="timescol">
+          <h4 id="timesTitle">Times</h4>
+          <div class="hint" id="timesHint">Choose a highlighted day ✦</div>
+          <div class="times2" id="timeList"></div>
+        </div>
+      </div>
+
+      <div class="picksum" id="pickSummary"></div>
+      <div id="detailBlock" class="detaildim">
+        <label for="f-name">Your name</label>
+        <input id="f-name" type="text" autocomplete="name" maxlength="80">
+        <label for="f-email">Email — the invite goes here</label>
+        <input id="f-email" type="email" autocomplete="email" maxlength="120">
+        <label for="f-notes">Anything you want me to know (optional)</label>
+        <textarea id="f-notes" rows="3" maxlength="500"></textarea>
+        <div class="err" id="formErr" style="display:none;margin-top:.8rem"></div>
+        <button class="btn" id="confirmBtn">Confirm My Call ✦</button>
+      </div>
+    </div>
+
+    <div id="stage-success" class="success" style="display:none">
+      <h2>The spell is cast. ✦</h2>
+      <div class="when" id="whenLabel"></div>
+      <p class="msg">A calendar invite is on its way to your inbox — the call link is inside it. Come as you are; bring your questions.</p>
+      <p style="margin-top:1.4rem"><a class="btn" href="index.html">Back to AI Wizardry</a></p>
+    </div>
+
+    <div id="stage-error" style="display:none">
+      <p class="err" id="bigErr"></p>
+      <button class="btn" id="retryBtn">Try Again</button>
+    </div>
+  </div>
+
+
+  <div class="flag">✦ OR SKIP THE CALENDAR ✦</div>
+  <h2 class="h2c">Drop a question — no appointment needed</h2>
+  <p class="lede" style="margin-bottom:1.2rem">Questions, ideas, "is this even possible?" — all of it welcome. It goes straight to my inbox and I reply personally.</p>
+  <div class="card" style="padding:1.8rem 1.5rem">
+    <form id="cform" novalidate>
+      <label for="c-name">Your name *</label>
+      <input id="c-name" type="text" autocomplete="name" maxlength="80" required>
+      <label for="c-email">Email *</label>
+      <input id="c-email" type="email" autocomplete="email" maxlength="120" required>
+      <label for="c-msg">Your message *</label>
+      <textarea id="c-msg" rows="5" maxlength="3000" required></textarea>
+      <div class="err" id="c-err" style="display:none"></div>
+      <div class="okmsg" id="c-ok" style="display:none">✦ Received. It's in my inbox — I'll reply personally.</div>
+      <button class="btn" id="c-btn" type="submit" style="margin-top:1.3rem">Send It ✦</button>
+    </form>
+  </div>
+  <p class="lede" style="text-align:center;margin-top:1.4rem">Prefer a group setting? <a href="office-hours.html" style="color:var(--neon)">Free monthly AI Office Hours →</a></p>
+
+  <div class="flag">✦ THE WIZARD BEHIND THE CURTAIN ✦</div>
+  <div class="sigilrow">🧙‍♂️</div>
+  <h2 class="h2c">Hey, I'm Nick.</h2>
+  <div class="aboutwrap">
+    <p>I'm an operator, builder, and scaler. I run operations across multiple businesses — e-commerce, education, real estate lead generation — and every one of them runs on an <b>AI stack custom-built to that specific business</b>, not something premade that only partly meets the needs: email triage, task management, payroll, meeting notes, and an AI brain that tracks all of it — growing in awareness and intelligence around the business, an asset for scaling if desired.</p>
+    <p>That's the difference. <b>No theory here — these systems run every single day, in real businesses</b> — the whole operation run, monitored, and approved from an iPhone. The same automations that hand back hours every week are the ones we'll build for yours, at whatever level you're starting from.</p>
+    <p>A first conversation with AI, or someone to take the keys to your operations — either way, it starts with one free call.</p>
+    <p style="text-align:center;margin-top:1.8rem"><a class="btn" href="#book">Book the Free Alignment Call ✦</a></p>
+  </div>
+
+  <div class="sig">✦ ✧ ✦</div>
+</main>
+<footer>© 2026 · AI WIZARDRY · ALL TIMES PACIFIC</footer>
+
+<script>
+(function(){
+  var API_SLOTS = 'https://64-181-232-186.nip.io/webhook/gateway-booking-slots-9a71c3';
+  var API_BOOK  = 'https://64-181-232-186.nip.io/webhook/gateway-booking-book-4e8d17';
+  var type = 'alignment';
+
+  var MONTHS = {};
+  var now = new Date();
+  var view = {y: now.getFullYear(), m: now.getMonth()};
+  var MINK = ym(now.getFullYear(), now.getMonth());
+  var maxD = new Date(now.getFullYear(), now.getMonth()+24, 1);
+  var MAXK = ym(maxD.getFullYear(), maxD.getMonth());
+  var sel = { date:null, dayLabel:null, slot:null };
+
+  function ym(y,m){ return y + '-' + String(m+1).padStart(2,'0'); }
+  function monthName(y,m){ return new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'}); }
+
+  function fetchMonth(key){
+    if (MONTHS[key]) return Promise.resolve(MONTHS[key]);
+    document.getElementById('calLoad').textContent = 'reading the calendar…';
+    return fetch(API_SLOTS + '?type=' + encodeURIComponent(type) + '&month=' + key)
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        var dayMap = {};
+        if (j.ok) (j.days||[]).forEach(function(d){ dayMap[d.date] = d; });
+        MONTHS[key] = { dayMap: dayMap };
+        document.getElementById('calLoad').textContent = '';
+        return MONTHS[key];
+      })
+      .catch(function(){ document.getElementById('calLoad').textContent = 'calendar didn’t answer — try the arrows again'; return { dayMap:{} }; });
+  }
+
+  function renderCal(){
+    var key = ym(view.y, view.m);
+    document.getElementById('calTitle').textContent = monthName(view.y, view.m);
+    document.getElementById('prevM').disabled = (key <= MINK);
+    document.getElementById('nextM').disabled = (key >= MAXK);
+    var grid = document.getElementById('calGrid'); grid.innerHTML = '';
+    var first = new Date(view.y, view.m, 1);
+    var days = new Date(view.y, view.m+1, 0).getDate();
+    for (var i=0;i<first.getDay();i++){ grid.appendChild(document.createElement('div')); }
+    var todayISO = new Date().toLocaleDateString('sv-SE');
+    var data = MONTHS[key] || { dayMap:{} };
+    for (var d=1; d<=days; d++){
+      var cell = document.createElement('div');
+      var iso = key + '-' + String(d).padStart(2,'0');
+      cell.className = 'cald'; cell.textContent = d;
+      if (iso === todayISO) cell.className += ' today';
+      var info = data.dayMap[iso];
+      if (info){
+        cell.className += ' av' + (sel.date===iso ? ' sel' : '');
+        (function(iso, info){
+          cell.addEventListener('click', function(){ pickDay(iso, info); });
+        })(iso, info);
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  function pickDay(iso, info){
+    sel.date = iso; sel.dayLabel = info.label; sel.slot = null;
+    renderCal(); renderTimes(info); updateSummary();
+  }
+
+  function renderTimes(info){
+    document.getElementById('timesTitle').textContent = info ? info.label : 'Times';
+    document.getElementById('timesHint').style.display = info ? 'none' : '';
+    var el = document.getElementById('timeList'); el.innerHTML = '';
+    if (!info) return;
+    info.slots.forEach(function(slot){
+      var b = document.createElement('button');
+      b.className = 'tbtn2' + (sel.slot && sel.slot.start===slot.start ? ' sel' : '');
+      b.textContent = slot.label;
+      b.addEventListener('click', function(){ sel.slot = slot; renderTimes(info); updateSummary(); });
+      el.appendChild(b);
+    });
+  }
+
+  function updateSummary(){
+    var s = document.getElementById('pickSummary');
+    var block = document.getElementById('detailBlock');
+    if (sel.date && sel.slot){
+      s.textContent = '✦ ' + sel.dayLabel + ' · ' + sel.slot.label + ' PT';
+      block.className = '';
+    } else if (sel.date){
+      s.textContent = sel.dayLabel + ' — now choose a time';
+      block.className = 'detaildim';
+    } else { s.textContent = ''; block.className = 'detaildim'; }
+  }
+
+  function nav(delta){
+    var d = new Date(view.y, view.m + delta, 1);
+    var key = ym(d.getFullYear(), d.getMonth());
+    if (key < MINK || key > MAXK) return;
+    view = {y: d.getFullYear(), m: d.getMonth()};
+    renderCal();
+    fetchMonth(key).then(renderCal);
+  }
+  document.getElementById('prevM').addEventListener('click', function(){ nav(-1); });
+  document.getElementById('nextM').addEventListener('click', function(){ nav(1); });
+
+  document.getElementById('confirmBtn').addEventListener('click', function(){
+    var name = document.getElementById('f-name').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var notes = document.getElementById('f-notes').value.trim();
+    var err = document.getElementById('formErr');
+    if (!sel.slot){ return; }
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.textContent = 'A name and a real email — the invite needs somewhere to land.'; err.style.display=''; return; }
+    err.style.display='none';
+    var btn = this; btn.disabled = true; btn.textContent = 'Casting…';
+    fetch(API_BOOK, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ type:type, start: sel.slot.start, name:name, email:email, notes:'[AI Wizardry] ' + notes }) })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        btn.disabled = false; btn.textContent = 'Confirm My Call ✦';
+        if (j.ok){
+          document.getElementById('whenLabel').textContent = j.human || (sel.dayLabel + ' · ' + sel.slot.label + ' PT');
+          document.getElementById('bookUI').style.display='none';
+          document.getElementById('stage-success').style.display='';
+        } else if (j.error === 'slot_taken'){
+          err.textContent = 'That exact moment was just claimed — pick another time.'; err.style.display='';
+          delete MONTHS[ym(view.y,view.m)]; sel.slot=null; updateSummary();
+          fetchMonth(ym(view.y,view.m)).then(function(md){ renderCal(); renderTimes(md.dayMap[sel.date]); });
+        } else {
+          err.textContent = 'Something slipped — try once more.'; err.style.display='';
+        }
+      })
+      .catch(function(){ btn.disabled=false; btn.textContent='Confirm My Call ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
+  });
+  document.getElementById('retryBtn').addEventListener('click', function(){ location.reload(); });
+
+  renderCal();
+  fetchMonth(ym(view.y, view.m)).then(function(md){
+    renderCal();
+    if (!Object.keys(md.dayMap).length){ nav(1); }
+  });
+})();
+</script>
+<script>
+(function(){
+  var API_MSG = 'https://64-181-232-186.nip.io/webhook/gateway-connect-7d2f91';
+  var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  document.getElementById('cform').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('c-name').value.trim();
+    var email = document.getElementById('c-email').value.trim();
+    var msg = document.getElementById('c-msg').value.trim();
+    var err = document.getElementById('c-err'), ok = document.getElementById('c-ok'), btn = document.getElementById('c-btn');
+    ok.style.display='none';
+    if (!name || !EMAIL_RE.test(email) || !msg){ err.textContent='Name, a real email, and a message — those three and it flies.'; err.style.display=''; return; }
+    err.style.display='none'; btn.disabled=true; btn.textContent='Sending…';
+    fetch(API_MSG, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({name:name,email:email,phone:'',message:'[AI Wizardry] '+msg}) })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        btn.disabled=false; btn.textContent='Send It ✦';
+        if (j.ok){ ok.style.display=''; document.getElementById('cform').reset(); }
+        else { err.textContent='Something slipped — try once more.'; err.style.display=''; }
+      })
+      .catch(function(){ btn.disabled=false; btn.textContent='Send It ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
+  });
+
+  var tb = document.getElementById('themeBtn');
+  if (tb){
+    var setIcon = function(){ tb.textContent = document.documentElement.getAttribute('data-theme')==='light' ? '\u263e' : '\u2600'; };
+    setIcon();
+    tb.addEventListener('click', function(){
+      var el = document.documentElement, light = el.getAttribute('data-theme')==='light';
+      if (light) el.removeAttribute('data-theme'); else el.setAttribute('data-theme','light');
+      try{ localStorage.setItem('aiw-theme', light ? 'dark' : 'light'); }catch(e){}
+      setIcon();
+    });
+  }
+})();
+</script>
+</body>
+</html>
