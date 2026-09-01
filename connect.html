@@ -126,6 +126,11 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
 .aboutwrap{max-width:44rem;margin:0 auto}
 .aboutwrap p{color:var(--dim);margin-bottom:1rem}
 .aboutwrap p b{color:var(--ink);font-weight:600}
+.modetoggle{display:flex;gap:.5rem;max-width:var(--maxw);margin:0 auto 1.1rem;justify-content:center;flex-wrap:wrap}
+.mt-opt{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.1rem;border-radius:2rem;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);color:var(--dim);cursor:pointer;transition:all .25s}
+.mt-opt.active{background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;border-color:transparent;font-weight:600}
+html[data-theme="light"] .mt-opt{background:rgba(255,255,255,.8)}
+html[data-theme="light"] .mt-opt.active{background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714}
 </style>
 <script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
 </head>
@@ -154,39 +159,53 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
     <p>A first conversation with AI, or someone to take the keys to your operations — either way, it starts with one free call.</p>
   </div>
 
-  <div class="flag" id="book">✦ BOOK THE FREE ALIGNMENT CALL ✦</div>
-  <div class="session">Alignment Call — 30 minutes, free · all times Pacific</div>
-  <p class="lede">Pick a day, pick a time, confirm. Change either at any moment just by clicking again — nothing locks until you confirm. We'll map where AI fits your life or business, and whether working together makes sense.</p>
+  <div class="flag" id="book">✦ CONNECT ✦</div>
+  <p class="lede">Book a free 30-minute Alignment Call, or just drop a question — your pick. Fill anything in any order; I'll tell you if something's missing.</p>
+
+  <div class="modetoggle">
+    <button class="mt-opt active" id="modeCall" type="button">📅 Schedule a call</button>
+    <button class="mt-opt" id="modeAsk" type="button">✉️ Just ask a question</button>
+  </div>
 
   <div class="card" id="widget">
     <div id="bookUI">
-      <div class="bookgrid">
-        <div>
-          <div class="calhead">
-            <button class="calnav" id="prevM" aria-label="Previous month">‹</button>
-            <div class="mt" id="calTitle">…</div>
-            <button class="calnav" id="nextM" aria-label="Next month">›</button>
+      <div id="schedBlock">
+        <div class="session">Alignment Call — 30 minutes, free · all times Pacific</div>
+        <div class="bookgrid">
+          <div>
+            <div class="calhead">
+              <button class="calnav" id="prevM" aria-label="Previous month">‹</button>
+              <div class="mt" id="calTitle">…</div>
+              <button class="calnav" id="nextM" aria-label="Next month">›</button>
+            </div>
+            <div class="dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+            <div class="calgrid" id="calGrid"></div>
+            <div class="calload" id="calLoad"></div>
           </div>
-          <div class="dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-          <div class="calgrid" id="calGrid"></div>
-          <div class="calload" id="calLoad"></div>
+          <div class="timescol">
+            <h4 id="timesTitle">Times</h4>
+            <div class="hint" id="timesHint">Choose a highlighted day ✦</div>
+            <div class="times2" id="timeList"></div>
+          </div>
         </div>
-        <div class="timescol">
-          <h4 id="timesTitle">Times</h4>
-          <div class="hint" id="timesHint">Choose a highlighted day ✦</div>
-          <div class="times2" id="timeList"></div>
-        </div>
+        <div class="picksum" id="pickSummary"></div>
       </div>
 
-      <div class="picksum" id="pickSummary"></div>
-      <div id="detailBlock" class="detaildim">
+      <div id="detailBlock">
         <label for="f-name">Your name</label>
         <input id="f-name" type="text" autocomplete="name" maxlength="80">
         <label for="f-email">Email — the invite goes here</label>
         <input id="f-email" type="email" autocomplete="email" maxlength="120">
-        <label for="f-notes">Anything you want me to know (optional)</label>
-        <textarea id="f-notes" rows="3" maxlength="500"></textarea>
+        <div id="notesWrap">
+          <label for="f-notes">Anything you want me to know (optional)</label>
+          <textarea id="f-notes" rows="3" maxlength="500"></textarea>
+        </div>
+        <div id="msgWrap" style="display:none">
+          <label for="f-msg">Your message</label>
+          <textarea id="f-msg" rows="5" maxlength="3000"></textarea>
+        </div>
         <div class="err" id="formErr" style="display:none;margin-top:.8rem"></div>
+        <div class="okmsg" id="askOk" style="display:none">✦ Received. It's in my inbox — I'll reply personally.</div>
         <button class="btn" id="confirmBtn">Confirm My Call ✦</button>
       </div>
     </div>
@@ -204,23 +223,6 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
     </div>
   </div>
 
-
-  <div class="flag">✦ OR SKIP THE CALENDAR ✦</div>
-  <h2 class="h2c">Drop a question — no appointment needed</h2>
-  <p class="lede" style="margin-bottom:1.2rem">Questions, ideas, "is this even possible?" — all of it welcome. It goes straight to my inbox and I reply personally.</p>
-  <div class="card" style="padding:1.8rem 1.5rem">
-    <form id="cform" novalidate>
-      <label for="c-name">Your name *</label>
-      <input id="c-name" type="text" autocomplete="name" maxlength="80" required>
-      <label for="c-email">Email *</label>
-      <input id="c-email" type="email" autocomplete="email" maxlength="120" required>
-      <label for="c-msg">Your message *</label>
-      <textarea id="c-msg" rows="5" maxlength="3000" required></textarea>
-      <div class="err" id="c-err" style="display:none"></div>
-      <div class="okmsg" id="c-ok" style="display:none">✦ Received. It's in my inbox — I'll reply personally.</div>
-      <button class="btn" id="c-btn" type="submit" style="margin-top:1.3rem">Send It ✦</button>
-    </form>
-  </div>
   <p class="lede" style="text-align:center;margin-top:1.4rem">Prefer a group setting? <a href="office-hours.html" style="color:var(--neon)">Free monthly AI Office Hours →</a></p>
 
   <div class="sig">✦ ✧ ✦</div>
@@ -240,6 +242,8 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
   var maxD = new Date(now.getFullYear(), now.getMonth()+24, 1);
   var MAXK = ym(maxD.getFullYear(), maxD.getMonth());
   var sel = { date:null, dayLabel:null, slot:null };
+  var API_MSG = 'https://64-181-232-186.nip.io/webhook/gateway-connect-7d2f91';
+  var mode = 'call';
 
   function ym(y,m){ return y + '-' + String(m+1).padStart(2,'0'); }
   function monthName(y,m){ return new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'}); }
@@ -307,14 +311,9 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
 
   function updateSummary(){
     var s = document.getElementById('pickSummary');
-    var block = document.getElementById('detailBlock');
-    if (sel.date && sel.slot){
-      s.textContent = '✦ ' + sel.dayLabel + ' · ' + sel.slot.label + ' PT';
-      block.className = '';
-    } else if (sel.date){
-      s.textContent = sel.dayLabel + ' — now choose a time';
-      block.className = 'detaildim';
-    } else { s.textContent = ''; block.className = 'detaildim'; }
+    if (sel.date && sel.slot){ s.textContent = '✦ ' + sel.dayLabel + ' · ' + sel.slot.label + ' PT'; }
+    else if (sel.date){ s.textContent = sel.dayLabel + ' — now choose a time'; }
+    else { s.textContent = ''; }
   }
 
   function nav(delta){
@@ -328,32 +327,55 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
   document.getElementById('prevM').addEventListener('click', function(){ nav(-1); });
   document.getElementById('nextM').addEventListener('click', function(){ nav(1); });
 
+  function setMode(m){
+    mode=m;
+    document.getElementById('modeCall').classList.toggle('active', m==='call');
+    document.getElementById('modeAsk').classList.toggle('active', m==='ask');
+    document.getElementById('schedBlock').style.display = (m==='call')?'':'none';
+    document.getElementById('notesWrap').style.display = (m==='call')?'':'none';
+    document.getElementById('msgWrap').style.display = (m==='ask')?'':'none';
+    document.getElementById('confirmBtn').textContent = (m==='call')?'Confirm My Call \u2726':'Send Question \u2726';
+    document.getElementById('formErr').style.display='none';
+    document.getElementById('askOk').style.display='none';
+  }
+  document.getElementById('modeCall').addEventListener('click', function(){ setMode('call'); });
+  document.getElementById('modeAsk').addEventListener('click', function(){ setMode('ask'); });
+
   document.getElementById('confirmBtn').addEventListener('click', function(){
     var name = document.getElementById('f-name').value.trim();
     var email = document.getElementById('f-email').value.trim();
-    var notes = document.getElementById('f-notes').value.trim();
-    var err = document.getElementById('formErr');
-    if (!sel.slot){ return; }
-    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.textContent = 'A name and a real email — the invite needs somewhere to land.'; err.style.display=''; return; }
-    err.style.display='none';
-    var btn = this; btn.disabled = true; btn.textContent = 'Casting…';
-    fetch(API_BOOK, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({ type:type, start: sel.slot.start, name:name, email:email, notes:'[AI Wizardry] ' + notes }) })
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        btn.disabled = false; btn.textContent = 'Confirm My Call ✦';
-        if (j.ok){
-          document.getElementById('whenLabel').textContent = j.human || (sel.dayLabel + ' · ' + sel.slot.label + ' PT');
-          document.getElementById('bookUI').style.display='none';
-          document.getElementById('stage-success').style.display='';
-        } else if (j.error === 'slot_taken'){
-          err.textContent = 'That exact moment was just claimed — pick another time.'; err.style.display='';
-          delete MONTHS[ym(view.y,view.m)]; sel.slot=null; updateSummary();
-          fetchMonth(ym(view.y,view.m)).then(function(md){ renderCal(); renderTimes(md.dayMap[sel.date]); });
-        } else {
-          err.textContent = 'Something slipped — try once more.'; err.style.display='';
-        }
-      })
-      .catch(function(){ btn.disabled=false; btn.textContent='Confirm My Call ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
+    var err = document.getElementById('formErr'), ok = document.getElementById('askOk');
+    var EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    var btn = this; ok.style.display='none'; var miss=[];
+    if (mode==='call'){
+      if(!sel.date) miss.push('a day'); if(!sel.slot) miss.push('a time');
+      if(!name) miss.push('your name'); if(!EMAIL.test(email)) miss.push('a valid email');
+      if(miss.length){ err.textContent='Still needed: '+miss.join(', ')+'.'; err.style.display=''; return; }
+      err.style.display='none'; btn.disabled=true; btn.textContent='Casting\u2026';
+      var notes=document.getElementById('f-notes').value.trim();
+      fetch(API_BOOK,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:type,start:sel.slot.start,name:name,email:email,notes:'[AI Wizardry] '+notes})})
+        .then(function(r){return r.json();})
+        .then(function(j){
+          btn.disabled=false; btn.textContent='Confirm My Call \u2726';
+          if(j.ok){ document.getElementById('whenLabel').textContent=j.human||(sel.dayLabel+' \u00b7 '+sel.slot.label+' PT'); document.getElementById('bookUI').style.display='none'; document.getElementById('stage-success').style.display=''; }
+          else if(j.error==='slot_taken'){ err.textContent='That exact moment was just claimed \u2014 pick another time.'; err.style.display=''; delete MONTHS[ym(view.y,view.m)]; sel.slot=null; updateSummary(); fetchMonth(ym(view.y,view.m)).then(function(md){ renderCal(); renderTimes(md.dayMap[sel.date]); }); }
+          else{ err.textContent='Something slipped \u2014 try once more.'; err.style.display=''; }
+        })
+        .catch(function(){ btn.disabled=false; btn.textContent='Confirm My Call \u2726'; err.textContent='The connection wavered \u2014 try again.'; err.style.display=''; });
+    } else {
+      var msg=document.getElementById('f-msg').value.trim();
+      if(!name) miss.push('your name'); if(!EMAIL.test(email)) miss.push('a valid email'); if(!msg) miss.push('a message');
+      if(miss.length){ err.textContent='Still needed: '+miss.join(', ')+'.'; err.style.display=''; return; }
+      err.style.display='none'; btn.disabled=true; btn.textContent='Sending\u2026';
+      fetch(API_MSG,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:name,email:email,phone:'',message:'[AI Wizardry] '+msg})})
+        .then(function(r){return r.json();})
+        .then(function(j){
+          btn.disabled=false; btn.textContent='Send Question \u2726';
+          if(j.ok){ ok.style.display=''; document.getElementById('f-msg').value=''; }
+          else{ err.textContent='Something slipped \u2014 try once more.'; err.style.display=''; }
+        })
+        .catch(function(){ btn.disabled=false; btn.textContent='Send Question \u2726'; err.textContent='The connection wavered \u2014 try again.'; err.style.display=''; });
+    }
   });
   document.getElementById('retryBtn').addEventListener('click', function(){ location.reload(); });
 
@@ -368,25 +390,6 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
 (function(){
   var API_MSG = 'https://64-181-232-186.nip.io/webhook/gateway-connect-7d2f91';
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  document.getElementById('cform').addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('c-name').value.trim();
-    var email = document.getElementById('c-email').value.trim();
-    var msg = document.getElementById('c-msg').value.trim();
-    var err = document.getElementById('c-err'), ok = document.getElementById('c-ok'), btn = document.getElementById('c-btn');
-    ok.style.display='none';
-    if (!name || !EMAIL_RE.test(email) || !msg){ err.textContent='Name, a real email, and a message — those three and it flies.'; err.style.display=''; return; }
-    err.style.display='none'; btn.disabled=true; btn.textContent='Sending…';
-    fetch(API_MSG, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({name:name,email:email,phone:'',message:'[AI Wizardry] '+msg}) })
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        btn.disabled=false; btn.textContent='Send It ✦';
-        if (j.ok){ ok.style.display=''; document.getElementById('cform').reset(); }
-        else { err.textContent='Something slipped — try once more.'; err.style.display=''; }
-      })
-      .catch(function(){ btn.disabled=false; btn.textContent='Send It ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
-  });
-
   var tb = document.getElementById('themeBtn');
   if (tb){
     var setIcon = function(){ var l=document.documentElement.getAttribute('data-theme')==='light'; tb.innerHTML = l ? '<span class="ti">☾</span><span class="tw">Dark</span>' : '<span class="ti">☀</span><span class="tw">Light</span>'; };
