@@ -167,6 +167,9 @@ html[data-theme="light"] .okmsg{color:#15803d}
         <input id="oh-name" type="text" autocomplete="name" maxlength="80" required>
         <label for="oh-email">Email — your invite lands here *</label>
         <input id="oh-email" type="email" autocomplete="email" maxlength="120" required>
+        <label for="oh-topic">What would you like to learn or discuss? <span style="text-transform:none;letter-spacing:.02em;color:var(--faint)">(optional)</span></label>
+        <textarea id="oh-topic" rows="3" maxlength="600" placeholder="A stuck automation, a tool you're curious about, a problem you think AI could eat&hellip;"></textarea>
+        <div class="fineprint" style="margin-top:.45rem">Helps me line up the session around what people actually want.</div>
         <div class="err" id="oh-err" style="display:none"></div>
         <div class="okmsg" id="oh-ok" style="display:none">✦ You're in. The calendar invite — with the call link — is on its way to your inbox.</div>
         <button class="btn" id="oh-btn" type="submit" style="margin-top:1.3rem;width:100%">Save My Seat ✦</button>
@@ -187,11 +190,12 @@ html[data-theme="light"] .okmsg{color:#15803d}
     e.preventDefault();
     var name = document.getElementById('oh-name').value.trim();
     var email = document.getElementById('oh-email').value.trim();
+    var topic = (document.getElementById('oh-topic').value||'').trim().slice(0,600);
     var err = document.getElementById('oh-err'), ok = document.getElementById('oh-ok'), btn = document.getElementById('oh-btn');
     ok.style.display='none';
     if (!name || !EMAIL_RE.test(email)){ err.textContent='A name and a real email — the invite needs somewhere to land.'; err.style.display=''; return; }
     err.style.display='none'; btn.disabled=true; btn.textContent='Casting…';
-    fetch(API_REG, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({name:name,email:email,event:'ai'}) })
+    fetch(API_REG, { method:'POST', headers:{'Content-Type':'text/plain'}, body: JSON.stringify({name:name,email:email,event:'ai',notes:topic}) })
       .then(function(r){ return r.json(); })
       .then(function(j){
         btn.disabled=false; btn.textContent='Save My Seat ✦';
