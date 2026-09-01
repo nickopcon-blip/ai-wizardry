@@ -78,6 +78,10 @@ h2 .glyph{color:var(--gold)}
 .btn.gold:hover{box-shadow:0 0 34px -8px rgba(251,191,36,.9)}
 .btn.ghost{background:rgba(11,14,30,.6);color:var(--neon);border:1px solid rgba(34,211,238,.45)}
 .btn.ghost:hover{box-shadow:0 0 26px -8px rgba(34,211,238,.7);border-color:var(--neon)}
+.btn.neon{background:linear-gradient(120deg,var(--neon),#7ee8fa);color:#04222b;font-weight:600;box-shadow:0 0 26px -8px rgba(34,211,238,.75);animation:neonpulse 2.6s ease-in-out infinite}
+.btn.neon:hover{box-shadow:0 0 44px -6px rgba(34,211,238,1)}
+@keyframes neonpulse{0%,100%{box-shadow:0 0 22px -8px rgba(34,211,238,.6)}50%{box-shadow:0 0 40px -6px rgba(34,211,238,.95)}}
+@media (prefers-reduced-motion:reduce){.btn.neon{animation:none}}
 .btn:disabled{opacity:.5;cursor:wait}
 
 .term{background:rgba(8,10,22,.9);border:1px solid rgba(139,92,246,.35);border-radius:10px;overflow:hidden;box-shadow:0 24px 70px -30px rgba(139,92,246,.45);font-family:var(--mono);font-size:.78rem;line-height:1.9}
@@ -166,7 +170,7 @@ footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-fam
       <p class="quote">"Any sufficiently advanced technology is indistinguishable from magic." — <b>Arthur C. Clarke</b></p>
       <div class="ctarow">
         <a class="btn gold" href="book.html">Book a Free 30-Min Alignment Call ✦</a>
-        <a class="btn ghost" href="#office-hours">Join Our Free Monthly AI Office Hours</a>
+        <a class="btn neon" href="#office-hours">Join Our Free Monthly AI Office Hours</a>
       </div>
     </div>
     <div class="term" aria-hidden="true">
