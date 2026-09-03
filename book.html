@@ -137,6 +137,8 @@ html[data-theme="light"] .mt-opt.active{background:linear-gradient(120deg,var(--
 @media (max-width:760px){.grid2{grid-template-columns:1fr}}
 .ccard{background:rgba(11,14,30,.75);border:1px solid rgba(139,92,246,.28);border-radius:12px;padding:1.9rem 1.6rem;backdrop-filter:blur(4px)}
 html[data-theme="light"] .ccard{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
+.paidbar{max-width:var(--maxw);margin:0 auto 1.3rem;display:none;align-items:center;gap:.7rem;justify-content:center;text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#6ee7a0;border:1px solid rgba(110,231,160,.4);background:rgba(110,231,160,.08);border-radius:2rem;padding:.7rem 1.2rem}
+html[data-theme="light"] .paidbar{color:#15803d;border-color:rgba(21,128,61,.35);background:rgba(21,128,61,.07)}
 .ccard h2{font-family:var(--display);font-weight:500;font-size:1.35rem;letter-spacing:.03em;margin-bottom:.6rem}
 .ccard p{color:var(--dim);font-size:.97rem;margin-bottom:1.2rem}
 </style>
@@ -155,10 +157,11 @@ html[data-theme="light"] .ccard{background:rgba(255,255,255,.9);border-color:rgb
   </div>
 </nav>
 <main>
-  <div class="eyebrow">✦ Free · No Strings · 30 Minutes</div>
+  <div class="paidbar" id="paidBar">✦ Payment received — thank you. Now pick your time below.</div>
+  <div class="eyebrow" id="bkEyebrow">✦ Free · No Strings · 30 Minutes</div>
   <h1 id="book">Book your Alignment Call</h1>
-  <div class="session">Alignment Call — 30 minutes, free · all times Pacific</div>
-  <p class="lede">Pick a day, pick a time, confirm. Change either at any moment just by clicking again — nothing locks until you confirm. We'll map where AI fits your life or business, and whether working together makes sense.</p>
+  <div class="session" id="bkSession">Alignment Call — 30 minutes, free · all times Pacific</div>
+  <p class="lede" id="bkLede">Pick a day, pick a time, confirm. Change either at any moment just by clicking again — nothing locks until you confirm. We'll map where AI fits your life or business, and whether working together makes sense.</p>
 
   <div class="card" id="widget">
     <div id="bookUI">
@@ -195,7 +198,7 @@ html[data-theme="light"] .ccard{background:rgba(255,255,255,.9);border-color:rgb
       <h2>The spell is cast. ✦</h2>
       <div class="when" id="whenLabel"></div>
       <p class="msg">A calendar invite is on its way to your inbox — the call link is inside it. Come as you are; bring your questions.</p>
-      <p style="margin-top:1.4rem"><a class="btn" href="index.html">Back to AI Wizardry</a></p>
+      <p style="margin-top:1.4rem"><button class="btn" id="bookAnother" style="display:none;margin-right:.6rem">Book Another Session ✦</button><a class="btn" href="index.html">Back to AI Wizardry</a></p>
     </div>
     <div id="stage-error" style="display:none">
       <p class="err" id="bigErr"></p>
@@ -212,7 +215,32 @@ html[data-theme="light"] .ccard{background:rgba(255,255,255,.9);border-color:rgb
 (function(){
   var API_SLOTS='https://64-181-232-186.nip.io/webhook/gateway-booking-slots-9a71c3';
   var API_BOOK='https://64-181-232-186.nip.io/webhook/gateway-booking-book-4e8d17';
-  var type='alignment';
+  var TYPE_META={
+    'alignment':   { eyebrow:'✦ Free · No Strings · 30 Minutes', h1:'Book your Alignment Call',
+                     session:'Alignment Call — 30 minutes, free · all times Pacific',
+                     lede:"Pick a day, pick a time, confirm. Change either at any moment just by clicking again — nothing locks until you confirm. We'll map where AI fits your life or business, and whether working together makes sense.",
+                     cta:'Confirm My Call ✦' },
+    'ai-coaching': { eyebrow:'✦ AI Coaching · 60 Minutes · Hands-On',
+                     h1:'Book your AI Coaching session',
+                     session:'AI Coaching Session — 60 minutes · all times Pacific',
+                     lede:'Pick a day, pick a time, confirm. Screen-share, hands-on, your questions. Booking one hour here — come back any time to schedule the rest of your hours.',
+                     cta:'Confirm My Session ✦' }
+  };
+  var params=new URLSearchParams(location.search);
+  var qt=params.get('type');
+  if(qt==='coaching') qt='ai-coaching';
+  var type=TYPE_META[qt]?qt:'alignment';
+  var paid=!!params.get('paid');
+  (function(){
+    var m=TYPE_META[type];
+    document.getElementById('bkEyebrow').textContent=m.eyebrow;
+    document.getElementById('book').textContent=m.h1;
+    document.getElementById('bkSession').textContent=m.session;
+    document.getElementById('bkLede').textContent=m.lede;
+    document.getElementById('confirmBtn').textContent=m.cta;
+    document.title=m.h1+' · AI Wizardry';
+    if(paid) document.getElementById('paidBar').style.display='flex';
+  })();
   var MONTHS={}, now=new Date();
   var view={y:now.getFullYear(), m:now.getMonth()};
   function ym(y,m){ return y+'-'+String(m+1).padStart(2,'0'); }
@@ -285,13 +313,14 @@ html[data-theme="light"] .ccard{background:rgba(255,255,255,.9);border-color:rgb
     err.style.display='none'; btn.disabled=true; btn.textContent='Casting…';
     fetch(API_BOOK,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:type,start:sel.slot.start,name:name,email:email,notes:'[AI Wizardry] '+notes})})
       .then(function(r){return r.json();}).then(function(j){
-        btn.disabled=false; btn.textContent='Confirm My Call ✦';
-        if(j.ok){ document.getElementById('whenLabel').textContent=j.human||(sel.dayLabel+' · '+sel.slot.label+' PT'); document.getElementById('bookUI').style.display='none'; document.getElementById('stage-success').style.display=''; }
+        btn.disabled=false; btn.textContent=TYPE_META[type].cta;
+        if(j.ok){ document.getElementById('whenLabel').textContent=j.human||(sel.dayLabel+' · '+sel.slot.label+' PT'); document.getElementById('bookUI').style.display='none'; document.getElementById('stage-success').style.display=''; if(paid) document.getElementById('bookAnother').style.display=''; }
         else if(j.error==='slot_taken'){ err.textContent='That exact moment was just claimed — pick another time.'; err.style.display=''; delete MONTHS[ym(view.y,view.m)]; sel.slot=null; updateSummary(); fetchMonth(ym(view.y,view.m)).then(function(md){ renderCal(); renderTimes(md.dayMap[sel.date]); }); }
         else{ err.textContent='Something slipped — try once more.'; err.style.display=''; }
-      }).catch(function(){ btn.disabled=false; btn.textContent='Confirm My Call ✦'; err.textContent='The connection wavered — try again.'; err.style.display=''; });
+      }).catch(function(){ btn.disabled=false; btn.textContent=TYPE_META[type].cta; err.textContent='The connection wavered — try again.'; err.style.display=''; });
   });
   document.getElementById('retryBtn').addEventListener('click',function(){ location.reload(); });
+  document.getElementById('bookAnother').addEventListener('click',function(){ location.href='book.html?type='+encodeURIComponent(type)+'&paid=1'; });
   renderCal(); fetchMonth(ym(view.y,view.m)).then(function(md){ renderCal(); if(!Object.keys(md.dayMap).length){ nav(1); } });
   var tb=document.getElementById('themeBtn');
   if(tb){ var setIcon=function(){ var l=document.documentElement.getAttribute('data-theme')==='light'; tb.innerHTML=l?'<span class="ti">☾</span><span class="tw">Dark</span>':'<span class="ti">☀</span><span class="tw">Light</span>'; };
