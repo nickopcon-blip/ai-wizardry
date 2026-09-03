@@ -19,8 +19,8 @@
   --maxw:1080px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--ink);font-family:var(--body);font-weight:300;font-size:1.02rem;line-height:1.7;overflow-x:hidden;
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip;max-width:100%}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-weight:300;font-size:1.02rem;line-height:1.7;overflow-x:hidden;overflow-x:clip;
   background-image:
     radial-gradient(ellipse 55% 38% at 18% 8%,rgba(139,92,246,.16),transparent),
     radial-gradient(ellipse 45% 35% at 85% 18%,rgba(34,211,238,.10),transparent),
@@ -33,7 +33,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.35;z
     linear-gradient(90deg,rgba(139,92,246,.05) 1px,transparent 1px);
   background-size:52px 52px;
   mask-image:radial-gradient(ellipse 90% 70% at 50% 20%,#000 30%,transparent 80%)}
-body::after{content:'';position:fixed;inset:-10%;pointer-events:none;z-index:0;
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
     radial-gradient(1px 1px at 15% 20%, rgba(232,236,255,.8) 50%, transparent 51%),
     radial-gradient(1px 1px at 38% 68%, rgba(34,211,238,.7) 50%, transparent 51%),
@@ -172,6 +172,13 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
 #coMount{min-height:380px}
 #coMsg{text-align:center;color:#54506e;font-family:var(--mono);font-size:.72rem;padding:2.5rem 1rem}
 #coMsg a{color:#6b3fd4}
+
+/* --- mobile paint/scroll guard (fixes long blank gap at page bottom) --- */
+@media (max-width:900px){
+  html,body{overflow-x:clip}
+  body{background-attachment:scroll!important}
+  body::before,body::after{inset:0}
+}
 </style>
 <script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
 </head>
