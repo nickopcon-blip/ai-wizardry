@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coaching · AI Wizardry</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🤖</text></svg>'>
+<meta name="description" content="1:1 AI coaching at $75/hr founding rate. Hands-on screen-share sessions from your first prompt to your own working automations — no jargon, no prerequisites.">
+<meta property="og:title" content="AI Coaching · AI Wizardry">
+<meta property="og:description" content="Start from zero. Leave with automations that run while you sleep. $75/hr founding rate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --void:#05060e; --panel:#0b0e1e; --panel2:#0e1226; --ink:#e8ecff; --dim:#98a0c3; --faint:#565e85;
+  --spark:#8b5cf6; --neon:#22d3ee; --gold:#fbbf24;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --maxw:1080px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip;max-width:100%}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-weight:300;font-size:1.02rem;line-height:1.7;overflow-x:hidden;overflow-x:clip;
+  background-image:
+    radial-gradient(ellipse 55% 38% at 18% 8%,rgba(139,92,246,.16),transparent),
+    radial-gradient(ellipse 45% 35% at 85% 18%,rgba(34,211,238,.10),transparent),
+    radial-gradient(ellipse 50% 40% at 70% 92%,rgba(139,92,246,.12),transparent),
+    radial-gradient(ellipse 40% 30% at 8% 75%,rgba(34,211,238,.08),transparent);
+  background-attachment:fixed;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.35;z-index:0;
+  background-image:
+    linear-gradient(rgba(139,92,246,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(139,92,246,.05) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 20%,#000 30%,transparent 80%)}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:60;background:linear-gradient(180deg,rgba(5,6,14,.95),rgba(5,6,14,.7) 80%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(139,92,246,.15)}
+.navwrap{max-width:1160px;margin:0 auto;padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.7rem 1.2rem;flex-wrap:wrap}
+.navbrand{font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.2em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.navbrand .nb{color:var(--gold);margin-right:.5rem}
+.navlinks{display:flex;gap:.55rem;flex-wrap:wrap;justify-content:center;align-items:center}
+.navlinks a{font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:.45rem .9rem;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);border-radius:2rem;transition:all .25s}
+.navlinks a:hover{color:var(--neon);border-color:rgba(34,211,238,.55)}
+@media (max-width:760px){.navwrap{justify-content:center}.navlinks{gap:.35rem}.navlinks a{font-size:.55rem;padding:.32rem .55rem;letter-spacing:.07em}}
+/* ── offerings dropdown ── */
+.navdrop{position:relative;display:inline-flex}
+.navdropbtn{font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;line-height:1;padding:.45rem .9rem;border:1px solid rgba(139,92,246,.4);background:rgba(11,14,30,.6);border-radius:2rem;transition:all .25s}
+.navdropbtn:hover,.navdrop.open .navdropbtn{color:var(--neon);border-color:rgba(34,211,238,.55)}
+.navdropbtn .caret{font-size:.6rem;transition:transform .25s}
+.navdrop.open .navdropbtn .caret{transform:rotate(180deg)}
+.navdropmenu{position:absolute;top:calc(100% + .5rem);left:50%;transform:translateX(-50%) translateY(-6px);min-width:11rem;display:flex;flex-direction:column;gap:.3rem;padding:.45rem;background:rgba(8,10,22,.97);border:1px solid rgba(139,92,246,.35);border-radius:.7rem;box-shadow:0 24px 60px -24px rgba(139,92,246,.7);opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s}
+.navdrop.open .navdropmenu,.navdrop:hover .navdropmenu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.navdropmenu a{border-radius:.45rem;justify-content:flex-start;width:100%;border-color:transparent;background:transparent;padding:.5rem .8rem}
+.navdropmenu a:hover{background:rgba(139,92,246,.16);border-color:rgba(34,211,238,.4)}
+@media (max-width:760px){.navdropbtn{font-size:.55rem;padding:.32rem .55rem;letter-spacing:.07em}.navdropmenu{min-width:9rem}}
+
+main{position:relative;z-index:2}
+section{max-width:var(--maxw);margin:0 auto;padding:3.6rem 1.5rem}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--spark);margin-bottom:1rem}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.12;letter-spacing:.01em;margin-bottom:1.1rem;
+  background:linear-gradient(100deg,var(--neon) 5%,var(--ink) 40%,var(--spark) 75%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-family:var(--display);font-weight:500;font-size:clamp(1.4rem,3.4vw,1.9rem);letter-spacing:.04em;margin-bottom:.7rem}
+.lede{color:var(--dim);max-width:46rem;font-size:1.08rem}
+.flag{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin:0 auto 1.8rem}
+.hero{padding-top:9rem}
+.btn{display:inline-block;font-family:var(--mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:4px;padding:1rem 1.6rem;cursor:pointer;transition:all .3s;border:none}
+.btn.gold{background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;font-weight:500}
+.btn.gold:hover{box-shadow:0 0 34px -8px rgba(251,191,36,.9)}
+.btn.ghost{background:rgba(11,14,30,.6);color:var(--neon);border:1px solid rgba(34,211,238,.45)}
+.btn.ghost:hover{box-shadow:0 0 26px -8px rgba(34,211,238,.7);border-color:var(--neon)}
+.ctarow{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:2rem}
+.alt{background:linear-gradient(180deg,transparent,rgba(139,92,246,.06) 12%,rgba(139,92,246,.06) 88%,transparent)}
+
+.tw{overflow-x:auto;border:1px solid rgba(139,92,246,.3);border-radius:12px;background:rgba(11,14,30,.8);backdrop-filter:blur(4px);margin-top:1.6rem}
+table{width:100%;border-collapse:collapse;min-width:460px}
+th,td{padding:.9rem 1.2rem;text-align:right;border-bottom:1px solid rgba(139,92,246,.14)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:500;white-space:nowrap;border-bottom:1px solid rgba(139,92,246,.3)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(139,92,246,.07)}
+td.name{font-family:var(--display);font-weight:500;font-size:1rem;letter-spacing:.02em}
+td.name small{display:block;font-family:var(--body);font-weight:300;font-size:.8rem;color:var(--faint);letter-spacing:0;margin-top:.1rem}
+td.v{font-family:var(--mono);font-size:.85rem;color:var(--dim);white-space:nowrap}
+td.p{font-family:var(--mono);font-size:1rem;color:var(--gold);font-weight:500;white-space:nowrap}
+.tnote{font-family:var(--mono);font-size:.72rem;color:var(--faint);letter-spacing:.05em;margin-top:1rem}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.8rem}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+.col{background:rgba(11,14,30,.78);border:1px solid rgba(139,92,246,.28);border-radius:12px;padding:1.7rem 1.5rem;backdrop-filter:blur(4px)}
+.col.no{border-color:rgba(86,94,133,.35)}
+.col h3{font-family:var(--display);font-weight:500;font-size:1.1rem;letter-spacing:.03em;margin-bottom:.9rem}
+.col.yes h3{color:var(--neon)}
+.col.no h3{color:var(--faint)}
+.col ul{list-style:none}
+.col li{color:var(--dim);font-size:.93rem;padding:.32rem 0 .32rem 1.4rem;position:relative;line-height:1.6}
+.col.yes li::before{content:'✦';position:absolute;left:0;color:var(--spark);font-size:.75rem;top:.55rem}
+.col.no li::before{content:'—';position:absolute;left:0;color:var(--faint);font-size:.8rem;top:.4rem}
+
+.rows{display:flex;flex-direction:column;gap:.8rem;margin-top:1.6rem}
+.row{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;background:rgba(11,14,30,.7);border:1px solid rgba(139,92,246,.24);border-radius:10px;padding:1.1rem 1.3rem}
+.row .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--neon);white-space:nowrap;padding-top:.3rem;min-width:7.5rem}
+.row .t{font-family:var(--display);font-weight:500;font-size:1rem;letter-spacing:.02em;margin-bottom:.15rem}
+.row .d{color:var(--dim);font-size:.92rem;line-height:1.6}
+@media (max-width:600px){.row{grid-template-columns:1fr;gap:.3rem}.row .k{padding-top:0}}
+
+.sig{color:var(--gold);letter-spacing:.9em;padding-left:.9em;text-align:center;margin:2rem 0}
+footer{position:relative;z-index:2;text-align:center;color:var(--faint);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;padding:2rem 1rem 3rem;border-top:1px solid rgba(139,92,246,.12)}
+
+.tmode{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-radius:2rem;border:none;background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.42rem .85rem;transition:all .25s}
+.tmode .ti{font-size:.85rem;line-height:1}
+@media (max-width:760px){.tmode{margin-left:auto;width:2.7rem;height:2.7rem;padding:0;border-radius:50%;gap:0}.tmode .tw{display:none}.tmode .ti{font-size:1.2rem}}
+html[data-theme="light"] .tmode{background:rgba(255,255,255,.8);border:1px solid rgba(109,40,217,.35);color:#241f3d}
+html[data-theme="light"]{--void:#f5f4fb;--panel:#ffffff;--ink:#241f3d;--dim:#4e4a70;--faint:#8a87ab;--gold:#b45309;--neon:#0e7490;--spark:#6d28d9}
+html[data-theme="light"] body{background-image:radial-gradient(ellipse 55% 38% at 18% 8%,rgba(109,40,217,.09),transparent),radial-gradient(ellipse 45% 35% at 85% 18%,rgba(14,116,144,.07),transparent),radial-gradient(ellipse 50% 40% at 70% 92%,rgba(109,40,217,.08),transparent)}
+html[data-theme="light"] body::before{background-image:linear-gradient(rgba(109,40,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(109,40,217,.07) 1px,transparent 1px)}
+html[data-theme="light"] .topnav{background:linear-gradient(180deg,rgba(245,244,251,.97),rgba(245,244,251,.8) 80%,transparent);border-bottom:1px solid rgba(109,40,217,.14)}
+html[data-theme="light"] .navlinks a,html[data-theme="light"] .navdropbtn{background:rgba(255,255,255,.8);border-color:rgba(109,40,217,.3)}
+html[data-theme="light"] .navdropmenu{background:rgba(255,255,255,.98);border-color:rgba(109,40,217,.25)}
+html[data-theme="light"] .navdropmenu a{background:transparent;border-color:transparent}
+html[data-theme="light"] .tw,html[data-theme="light"] .col,html[data-theme="light"] .row{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
+html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-color:rgba(14,116,144,.45)}
+@media (max-width:900px){html,body{overflow-x:clip}body{background-attachment:scroll!important}body::before{inset:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.1rem;margin-top:1.8rem}
+.card{background:rgba(11,14,30,.75);border:1px solid rgba(139,92,246,.28);border-radius:10px;padding:1.5rem 1.35rem;backdrop-filter:blur(4px);transition:border-color .3s,transform .3s}
+.card:hover{border-color:rgba(34,211,238,.5);transform:translateY(-3px)}
+.card .ic{font-size:1.45rem;margin-bottom:.5rem}
+.card h3{font-family:var(--display);font-weight:500;font-size:1.04rem;margin-bottom:.4rem;letter-spacing:.03em}
+.card p{color:var(--dim);font-size:.92rem}
+html[data-theme="light"] .card{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
+.priceblock{max-width:34rem;margin:1.8rem auto 0;background:rgba(11,14,30,.85);border:1px solid rgba(251,191,36,.5);border-radius:14px;padding:2rem 1.7rem;text-align:center;box-shadow:0 0 60px -26px rgba(251,191,36,.6)}
+html[data-theme="light"] .priceblock{background:rgba(255,255,255,.94);border-color:rgba(180,83,9,.4)}
+.priceblock .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.priceblock .amt{font-family:var(--display);font-weight:700;font-size:3rem;line-height:1;color:var(--gold)}
+.priceblock .amt span{font-size:1.1rem;font-weight:400;color:var(--dim)}
+.priceblock .sub{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--dim);margin-top:.7rem}
+.priceblock .after{font-size:.88rem;color:var(--faint);margin-top:1.1rem;line-height:1.6}
+.btn.neon{background:linear-gradient(120deg,var(--neon),#7ee8fa);color:#04222b;font-weight:600;box-shadow:0 0 26px -8px rgba(34,211,238,.75)}
+.btn.neon:hover{box-shadow:0 0 44px -6px rgba(34,211,238,1)}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:.8rem;margin-top:1.6rem;max-width:44rem}
+.step{counter-increment:s;position:relative;padding-left:3.2rem;background:rgba(11,14,30,.7);border:1px solid rgba(139,92,246,.24);border-radius:10px;padding-top:1.1rem;padding-bottom:1.1rem;padding-right:1.3rem}
+html[data-theme="light"] .step{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
+.step::before{content:counter(s);position:absolute;left:1.1rem;top:1.05rem;font-family:var(--mono);font-size:.9rem;color:var(--gold)}
+.step .t{font-family:var(--display);font-weight:500;font-size:1rem;letter-spacing:.02em;margin-bottom:.15rem}
+.step .d{color:var(--dim);font-size:.92rem;line-height:1.6}
+#coOverlay{position:fixed;inset:0;background:rgba(5,6,14,.82);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:3.5rem 1rem}
+#coPanel{background:#fff;border-radius:10px;max-width:480px;width:100%;position:relative;box-shadow:0 30px 90px -20px rgba(0,0,0,.9)}
+#coHead{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid #eee}
+#coHead .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#54506e}
+#coClose{background:none;border:none;font-size:1.2rem;color:#666;cursor:pointer;line-height:1}
+#coMount{min-height:380px}
+#coMsg{text-align:center;color:#54506e;font-family:var(--mono);font-size:.72rem;padding:2.5rem 1rem}
+#coMsg a{color:#6b3fd4}
+</style>
+<script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
+</head>
+<body>
+<nav class="topnav" aria-label="Site">
+  <div class="navwrap">
+    <a class="navbrand" href="index.html"><span class="nb">✦</span>AI WIZARDRY</a>
+    <div class="navlinks">
+      <a href="index.html">The Magic</a>
+      <div class="navdrop" id="navdrop">
+        <button class="navdropbtn" id="navdropbtn" aria-expanded="false" aria-haspopup="true">Offerings <span class="caret">▾</span></button>
+        <div class="navdropmenu">
+          <a href="bookkeeping.html">Bookkeeping</a>
+          <a href="ai-coaching.html">AI Coaching</a>
+        </div>
+      </div>
+      <a href="connect.html">Connect</a>
+      <a href="office-hours.html">Office Hours</a>
+      <a href="free-upgrades.html">Free Upgrades</a>
+      <button class="tmode" id="themeBtn" aria-label="Switch theme"><span class="ti">☀</span><span class="tw">Light</span></button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">✦ Offerings · AI Coaching</div>
+    <h1>Learn the spells yourself.</h1>
+    <p class="lede">The people getting ahead with AI aren't smarter than you. They just learned what it can actually do, and where it actually fits. This is hands-on, screen-share, one-on-one — starting exactly where you are, whether that's "I've never opened one of these" or "I have twelve tabs of half-working automations."</p>
+    <div class="ctarow">
+      <a class="btn gold" href="book.html">Book a Free Alignment Call ✦</a>
+      <a class="btn ghost" href="#pricing">See Pricing</a>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="flag">✦ WHAT WE COVER ✦</div>
+    <h2 style="text-align:center">Everything inside the container</h2>
+    <p class="lede" style="margin:0 auto;text-align:center">There's no fixed curriculum, because you don't need most of one. We go where your actual work is. Over a typical engagement, that tends to cover:</p>
+    <div class="cards">
+      <div class="card"><div class="ic">🌱</div><h3>Starting from absolute zero</h3><p>Which assistant to use, how to talk to it, and why your first few attempts felt underwhelming. No prerequisites, no shame, no jargon — we go at whatever pace is comfortable.</p></div>
+      <div class="card"><div class="ic">🧭</div><h3>The tools worth your time</h3><p>There are thousands. Maybe six matter for you. We work out which ones fit how you actually operate, and I'll tell you plainly which hyped ones to skip.</p></div>
+      <div class="card"><div class="ic">🗣️</div><h3>Prompting that gets real results</h3><p>Why the same question gets a brilliant answer one day and a useless one the next — and how to write the kind of request that works every time.</p></div>
+      <div class="card"><div class="ic">🧬</div><h3>An assistant shaped around you</h3><p>Not a generic chatbot. One that knows your business, your people, your language and your rules, and remembers them between conversations.</p></div>
+      <div class="card"><div class="ic">⚙️</div><h3>Your first working automations</h3><p>Something that runs without you — an inbox that triages itself, follow-ups that send on their own, a report that builds overnight. We build it together, live, in your accounts.</p></div>
+      <div class="card"><div class="ic">📄</div><h3>Documents, data and drudgery</h3><p>Contracts summarized, spreadsheets cleaned, research compiled, transcripts turned into action items. The work you dread, handed off.</p></div>
+      <div class="card"><div class="ic">✍️</div><h3>Writing in your own voice</h3><p>Emails, posts, proposals, listings — drafted to sound like you rather than like a press release. Getting this right is a skill, and it's teachable.</p></div>
+      <div class="card"><div class="ic">🔐</div><h3>Using AI safely</h3><p>What's safe to paste and what isn't, how to catch a confident wrong answer, and where to put guardrails so a mistake stays small.</p></div>
+      <div class="card"><div class="ic">🏢</div><h3>Bringing your team along</h3><p>Rolling it out to people who didn't ask for it — what to standardize, what to leave alone, and how to avoid the tool everyone quietly stops using.</p></div>
+      <div class="card"><div class="ic">🎬</div><h3>Images, audio and video</h3><p>Generating and editing visual work, cloning a voice, cutting clips, producing content without a production crew.</p></div>
+      <div class="card"><div class="ic">🔎</div><h3>Research that holds up</h3><p>Using AI to find things out without getting confidently lied to — sourcing, verification, and knowing when to stop trusting it.</p></div>
+      <div class="card"><div class="ic">🛠️</div><h3>Fixing what you already built</h3><p>Bring the half-finished automation, the assistant that keeps forgetting, the workflow that broke last month. We debug it together and you learn why it broke.</p></div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="flag">✦ PRICING ✦</div>
+    <h2 style="text-align:center">Founding rate</h2>
+    <div class="priceblock">
+      <div class="tag">1:1 Coaching · Screen-share</div>
+      <div class="amt">$75<span> / hour</span></div>
+      <div class="sub">Founding rate — your first 40 hours</div>
+      <p class="after">Beyond your first 40 hours we move to a monthly retainer or a project rate, shaped by what we're building. Buy hours in whatever size block suits you — there's no package to commit to and nothing expires.</p>
+      <button class="btn neon" style="border:none;cursor:pointer;width:100%;margin:1.3rem 0 .6rem" onclick="openCheckout('ai-coaching')">Buy Coaching Hours ✦</button>
+      <a class="btn ghost" href="book.html" style="width:100%;text-align:center">Or Book a Free Call First ✦</a>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="flag">✦ HOW IT WORKS ✦</div>
+    <h2 style="text-align:center">From first call to running on its own</h2>
+    <div class="steps" style="margin-left:auto;margin-right:auto">
+      <div class="step"><div class="t">A free 30-minute alignment call</div><div class="d">We map where AI actually fits your life or business, what to automate first, and what isn't worth your time. If working together makes sense, we'll both know by the end. No pitch.</div></div>
+      <div class="step"><div class="t">We start where you are</div><div class="d">First session is hands-on in your own accounts, on your own work. Not slides, not a course — your actual inbox, your actual spreadsheet, your actual bottleneck.</div></div>
+      <div class="step"><div class="t">You build something that runs without you</div><div class="d">The goal of every engagement is at least one thing working while you sleep. We build it together so you understand it, and so you can change it later without me.</div></div>
+      <div class="step"><div class="t">You keep everything</div><div class="d">It lives in your accounts, under your logins, built for your business from its first line. Nothing is rented from me and nothing breaks if we stop working together.</div></div>
+    </div>
+    <div class="ctarow" style="justify-content:center">
+      <a class="btn gold" href="book.html">Book a Free Alignment Call ✦</a>
+      <a class="btn ghost" href="office-hours.html">Or Join Free Office Hours</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="flag">✦ WHO THIS IS FOR ✦</div>
+    <h2 style="text-align:center">No prerequisites</h2>
+    <p class="lede" style="margin:0 auto;text-align:center">Business owners who know they're behind on this. People whose job is quietly changing under them. Anyone who has opened an AI tool, felt underwhelmed, and assumed the problem was them. It wasn't — nobody showed you how it actually works. That's the whole job here.</p>
+  </section>
+
+  <div class="sig">✦ ✧ ✦</div>
+</main>
+
+<footer>© 2026 · AI WIZARDRY · ALL TIMES PACIFIC</footer>
+
+<script>
+(function(){
+  var tb=document.getElementById('themeBtn');
+  if(tb){
+    var setIcon=function(){var l=document.documentElement.getAttribute('data-theme')==='light';tb.innerHTML=l?'<span class="ti">☾</span><span class="tw">Dark</span>':'<span class="ti">☀</span><span class="tw">Light</span>';};
+    setIcon();
+    tb.addEventListener('click',function(){var el=document.documentElement,light=el.getAttribute('data-theme')==='light';
+      if(light)el.removeAttribute('data-theme');else el.setAttribute('data-theme','light');
+      try{localStorage.setItem('aiw-theme',light?'dark':'light');}catch(e){} setIcon();});
+  }
+  var dd=document.getElementById('navdrop'),db=document.getElementById('navdropbtn');
+  if(dd&&db){
+    db.addEventListener('click',function(e){e.stopPropagation();var o=dd.classList.toggle('open');db.setAttribute('aria-expanded',o?'true':'false');});
+    document.addEventListener('click',function(){dd.classList.remove('open');db.setAttribute('aria-expanded','false');});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){dd.classList.remove('open');db.setAttribute('aria-expanded','false');}});
+  }
+})();
+</script>
+
+<div id="coOverlay" role="dialog" aria-modal="true">
+  <div id="coPanel">
+    <div id="coHead"><span class="t">✦ Secure Checkout · Stripe</span><button id="coClose" aria-label="Close">✕</button></div>
+    <div id="coMsg">Opening secure checkout…</div>
+    <div id="coMount"></div>
+  </div>
+</div>
+<script>
+var CO_API='https://64-181-232-186.nip.io/webhook/gateway-checkout-49f2b7';
+var CO_PK='pk_live_51TNDUt0SXGAfXpoK8dwaSWIwOLhKlUqcMJlvFvZTQ2WnzRJbYwNtsOExhBiNq5ztBly2mcIUwhc81peZ2nLLOLIq00mdNKNMbQ';
+var coInstance=null, coStripe=null;
+function coCleanup(){ if(coInstance){try{coInstance.destroy();}catch(e){} coInstance=null;} document.getElementById('coMount').innerHTML=''; document.getElementById('coOverlay').style.display='none'; document.body.style.overflow=''; }
+function coFail(){ var m=document.getElementById('coMsg'); m.innerHTML='Checkout hiccuped — try again in a moment, or email <a href="mailto:nick.opcon@gmail.com">nick.opcon@gmail.com</a>.'; m.style.display=''; }
+function openCheckout(product){
+  var ov=document.getElementById('coOverlay'); ov.style.display='flex'; document.body.style.overflow='hidden';
+  var msg=document.getElementById('coMsg'); msg.textContent='Opening secure checkout…'; msg.style.display='';
+  function start(){
+    if(!coStripe) coStripe=Stripe(CO_PK);
+    fetch(CO_API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({product:product,qty:1})})
+      .then(function(r){return r.json();})
+      .then(function(j){ if(!j.ok||!j.client_secret){ coFail(); return; }
+        return coStripe.initEmbeddedCheckout({clientSecret:j.client_secret}).then(function(co){ coInstance=co; msg.style.display='none'; co.mount('#coMount'); }); })
+      .catch(coFail);
+  }
+  if(window.Stripe){ start(); } else { var s=document.createElement('script'); s.src='https://js.stripe.com/v3/'; s.onload=start; s.onerror=coFail; document.head.appendChild(s); }
+}
+document.getElementById('coClose').addEventListener('click', coCleanup);
+document.getElementById('coOverlay').addEventListener('click', function(e){ if(e.target===this) coCleanup(); });
+</script>
+</body>
+</html>
