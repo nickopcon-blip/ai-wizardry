@@ -71,18 +71,19 @@ h2{font-family:var(--display);font-weight:500;font-size:clamp(1.4rem,3.4vw,1.9re
 .ctarow{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:2rem}
 .alt{background:linear-gradient(180deg,transparent,rgba(139,92,246,.06) 12%,rgba(139,92,246,.06) 88%,transparent)}
 
-.tblwrap{overflow-x:auto;border:1px solid rgba(139,92,246,.3);border-radius:12px;background:rgba(11,14,30,.8);backdrop-filter:blur(4px);margin-top:1.6rem}
-table{width:100%;border-collapse:collapse;min-width:460px}
-th,td{padding:.9rem 1.2rem;text-align:right;border-bottom:1px solid rgba(139,92,246,.14)}
+.tblwrap{overflow-x:auto;border:1px solid rgba(139,92,246,.3);border-radius:12px;background:rgba(11,14,30,.8);backdrop-filter:blur(4px);margin:1.8rem auto 0;max-width:34rem}
+.tblwrap.wide{max-width:42rem}
+table{width:100%;border-collapse:collapse;min-width:0}
+th,td{padding:1.05rem 1.7rem;text-align:right;border-bottom:1px solid rgba(139,92,246,.14)}
 th:first-child,td:first-child{text-align:left}
-thead th{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:500;white-space:nowrap;border-bottom:1px solid rgba(139,92,246,.3)}
+thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:500;white-space:nowrap;border-bottom:1px solid rgba(139,92,246,.3)}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:rgba(139,92,246,.07)}
-td.name{font-family:var(--display);font-weight:500;font-size:1rem;letter-spacing:.02em}
+td.name{font-family:var(--display);font-weight:500;font-size:1.2rem;letter-spacing:.02em}
 td.name small{display:block;font-family:var(--body);font-weight:300;font-size:.8rem;color:var(--faint);letter-spacing:0;margin-top:.1rem}
 td.v{font-family:var(--mono);font-size:.85rem;color:var(--dim);white-space:nowrap}
-td.p{font-family:var(--mono);font-size:1rem;color:var(--gold);font-weight:500;white-space:nowrap}
-.tnote{font-family:var(--mono);font-size:.72rem;color:var(--faint);letter-spacing:.05em;margin-top:1rem}
+td.p{font-family:var(--mono);font-size:1.35rem;color:var(--gold);font-weight:500;white-space:nowrap}
+.tnote{font-family:var(--mono);font-size:.78rem;text-align:center;max-width:42rem;margin-left:auto;margin-right:auto;color:var(--faint);letter-spacing:.05em;margin-top:1rem}
 
 .split{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.8rem}
 @media (max-width:820px){.split{grid-template-columns:1fr}}
@@ -121,6 +122,7 @@ html[data-theme="light"] .navdropmenu{background:rgba(255,255,255,.98);border-co
 html[data-theme="light"] .navdropmenu a{background:transparent;border-color:transparent}
 html[data-theme="light"] .tblwrap,html[data-theme="light"] .col,html[data-theme="light"] .row{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
 html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-color:rgba(14,116,144,.45)}
+@media (max-width:560px){th,td{padding:.9rem 1.1rem}td.name{font-size:1.05rem}td.p{font-size:1.15rem}}
 @media (max-width:900px){html,body{overflow-x:clip}body{background-attachment:scroll!important}body::before{inset:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -179,7 +181,7 @@ html[data-theme="light"] .btn.ghost{background:rgba(255,255,255,.85);border-colo
     <div class="flag">✦ GETTING STARTED ✦</div>
     <h2 style="text-align:center">One onboarding fee, quoted once</h2>
     <p class="lede" style="margin:0 auto;text-align:center">It covers building your automation and cleaning up whatever is behind. Priced on the number of past transactions that need work — not on how many months it's been. We look at your books first, free, then quote a fixed number. Never hourly, never open-ended.</p>
-    <div class="tblwrap"><table>
+    <div class="tblwrap wide"><table>
       <thead><tr><th>Past transactions needing cleanup</th><th>One-time fee</th></tr></thead>
       <tbody>
         <tr><td class="name">None — books are current and clean</td><td class="p">$500</td></tr>
