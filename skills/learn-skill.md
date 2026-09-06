@@ -1,15 +1,15 @@
 ---
 name: learn
-description: AUTO-LEARN — turn lessons from any chat into permanent Claude instructions. Runs two ways. (1) Always-on: the moment the user corrects Claude, states a preference ("from now on…", "always…", "never…", "I prefer…"), repeats a request they've clearly made before, or a useful workaround is discovered, immediately propose a 📚 instruction upgrade. (2) On demand: when the user types /learn or says "what did you learn?", "anything worth remembering?", "upgrade your instructions", sweep the whole chat for lessons and propose upgrades for everything found.
+description: AUTO-LEARN — turn lessons from any chat into permanent custom instructions for your AI assistant. Runs two ways. (1) Always-on: the moment the user corrects the assistant, states a preference ("from now on…", "always…", "never…", "I prefer…"), repeats a request they've clearly made before, or a useful workaround is discovered, immediately propose a 📚 instruction upgrade. (2) On demand: when the user types /learn or says "what did you learn?", "anything worth remembering?", "upgrade your instructions", sweep the whole chat for lessons and propose upgrades for everything found.
 ---
 
-# /learn — Make Claude permanently smarter from this chat
+# /learn — Make your AI assistant permanently smarter from this chat
 
-By default, everything Claude learns in a chat dies with the chat. This skill fixes that: lessons become short, paste-ready instruction upgrades the user can make permanent in under a minute. Over weeks, this compounds into a Claude that works exactly the way they do.
+By default, everything an assistant learns in a chat dies with the chat. This skill fixes that: lessons become short, paste-ready instruction upgrades the user can make permanent in under a minute. Over weeks, this compounds into an assistant that works exactly the way they do.
 
 ## What counts as a lesson
 
-- **Corrections** — the user fixed something Claude did ("no, shorter", "don't use bullet points", "that's the wrong account").
+- **Corrections** — the user fixed something the assistant did ("no, shorter", "don't use bullet points", "that's the wrong account").
 - **Stated preferences** — "from now on…", "always…", "never…", "I prefer…", "call it X not Y".
 - **Repeated asks** — the user is clearly asking for something they've asked for before; that's a preference in disguise.
 - **Workarounds and better ways** — a discovered fix, sequence, or setting that future chats should know without rediscovering it.
@@ -23,7 +23,7 @@ The moment you spot a lesson — mid-chat, don't wait for the end — output:
 
 📚 **Instruction upgrade:** one line saying what was learned and why it's worth keeping.
 
-Then a fenced code block containing 1–3 crisp instruction lines, written as direct commands to Claude, general enough to apply beyond today's task. Example:
+Then a fenced code block containing 1–3 crisp instruction lines, written as direct commands to the assistant, general enough to apply beyond today's task. Example:
 
 ```
 When drafting emails for me, keep them under 100 words, open with the point (no pleasantries), and sign off with just my first name.
@@ -31,11 +31,11 @@ When drafting emails for me, keep them under 100 words, open with the point (no 
 
 Then one line telling them how to make it stick:
 
-> To make this permanent: open the Claude app → **Settings → Profile** → paste this into the *"What preferences should Claude consider in responses?"* box (add it below whatever's already there). Or just tell me **"remember this"** and I'll store it in memory.
+> To make this permanent, paste it into your custom instructions (add it below whatever's already there) — Claude: **Settings → Profile → Instructions for Claude** · ChatGPT: **Settings → Personalization → Custom instructions** · Gemini: **Settings → Saved info**. Or just tell me **"remember this"** and I'll store it in memory.
 
 ## Rules
 
-- **Propose, never apply.** Never edit their settings yourself; the user pastes it. If they say "remember this", store it in Claude memory (if available) as the fallback.
+- **Propose, never apply.** Never edit their settings yourself; the user pastes it. If they say "remember this", store it in built-in memory (if available) as the fallback.
 - **Short and general.** 1–3 lines per upgrade. If it only works for today's exact task, it's not an instruction — it's a note.
 - **Don't nag.** At most one or two proposals per chat unless the user runs /learn. If they ignore a proposal, drop it.
 - **The 📚 emoji is the marker.** Always use it so upgrades are easy to spot when scrolling.
