@@ -26,7 +26,7 @@ Walk back through the conversation and collect everything that exists ONLY here 
 
 Save each item using the best option this account actually has, in this order. On the FIRST run ever, briefly tell the user which homes you found and are using.
 
-1. **Built-in memory** (Claude memory · ChatGPT Memory · Gemini Saved info — whichever this assistant has): store durable facts, preferences, and project status there — it follows the user across chats and devices with zero setup. This is the preferred home for facts and preferences.
+1. **Built-in memory** (Claude memory · ChatGPT Memory · Gemini Memory (Personal Intelligence) — whichever this assistant has): store durable facts, preferences, and project status there — it follows the user across chats and devices with zero setup. This is the preferred home for facts and preferences.
 2. **A connected folder** (if one is connected, or the user connects one when you offer): keep a folder called `AI HQ` with two files, and always read the current file before editing it — update in place, never blindly overwrite:
    - `RESUME.md` — one section per open topic: what's done, what's in progress, the exact next step, and any context (drafts, values, decisions) that would otherwise be lost. This is what makes "continue" work later.
    - `NOTES.md` — durable facts and reference info, one topic per section, newest updates replacing old ones in place.
