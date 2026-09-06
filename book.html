@@ -156,6 +156,12 @@ html[data-theme="light"] .navdropbtn{background:rgba(255,255,255,.8);border-colo
 html[data-theme="light"] .navdropmenu{background:rgba(255,255,255,.98);border-color:rgba(109,40,217,.25)}
 html[data-theme="light"] .navdropmenu a{background:transparent;border-color:transparent}
 @media (max-width:760px){.navdropbtn{font-size:.55rem;padding:.32rem .55rem;letter-spacing:.07em}.navdropmenu{min-width:9rem}}
+.aboutpills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.1rem}
+.apill{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:.7rem 1rem;min-height:44px;border:1px solid rgba(139,92,246,.45);color:var(--dim);background:rgba(5,6,14,.6);border-radius:2rem;cursor:pointer;transition:all .2s;line-height:1.2}
+.apill:hover{border-color:rgba(34,211,238,.7);color:var(--ink)}
+.apill.sel{background:linear-gradient(120deg,var(--gold),#fde68a);color:#0a0714;border-color:transparent;font-weight:600}
+html[data-theme="light"] .apill{background:rgba(255,255,255,.85)}
+@media (max-width:560px){.aboutpills{gap:.45rem}.apill{flex:1 1 calc(50% - .45rem);text-align:center}}
 </style>
 <script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
 </head>
@@ -164,13 +170,13 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
   <div class="navwrap">
     <a class="navbrand" href="index.html"><span class="nb">✦</span>AI WIZARDRY</a>
     <div class="navlinks">
-      <a href="index.html">The Magic</a>
+      <a href="index.html">Office Hours</a>
       <div class="navdrop" id="navdrop">
         <button class="navdropbtn" id="navdropbtn" aria-expanded="false" aria-haspopup="true">Offerings <span class="caret">▾</span></button>
         <div class="navdropmenu">
+          <a href="magic.html">The Magic</a>
           <a href="bookkeeping.html">Bookkeeping</a>
           <a href="ai-coaching.html">AI Coaching</a>
-          <a href="office-hours.html">Office Hours</a>
         </div>
       </div>
       <a href="connect.html">Connect</a>
@@ -207,6 +213,16 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
       </div>
       <div class="picksum" id="pickSummary"></div>
       <div id="detailBlock">
+        <div id="aboutWrap">
+          <label>What's this call about?</label>
+          <div class="aboutpills" id="aboutPills" role="radiogroup" aria-label="What is this call about">
+            <button type="button" class="apill" data-v="bookkeeping">Bookkeeping</button>
+            <button type="button" class="apill" data-v="ai-coaching">AI Coaching</button>
+            <button type="button" class="apill" data-v="operator">The Operator · fractional ops</button>
+            <button type="button" class="apill" data-v="office-hours">Office Hours follow-up</button>
+            <button type="button" class="apill" data-v="other">Something else</button>
+          </div>
+        </div>
         <label for="f-name">Your name</label>
         <input id="f-name" type="text" autocomplete="name" maxlength="80">
         <label for="f-email">Email — the invite goes here</label>
@@ -254,6 +270,11 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
   if(qt==='coaching') qt='ai-coaching';
   var type=TYPE_META[qt]?qt:'alignment';
   var paid=!!params.get('paid');
+  var ABOUT_LABEL={'bookkeeping':'Bookkeeping','ai-coaching':'AI Coaching','operator':'The Operator (fractional ops)','office-hours':'Office Hours follow-up','other':'Something else'};
+  var about=params.get('about')||'';
+  if(!ABOUT_LABEL[about]){ about=''; try{ var tr=(sessionStorage.getItem('aiw_trail')||'').split('>').reverse(); for(var i=0;i<tr.length;i++){ if(tr[i]==='bookkeeping'||tr[i]==='ai-coaching'){ about=tr[i]; break; } } }catch(e){} }
+  function paintAbout(){ var ps=document.querySelectorAll('#aboutPills .apill'); for(var i=0;i<ps.length;i++){ ps[i].className='apill'+(ps[i].getAttribute('data-v')===about?' sel':''); ps[i].setAttribute('aria-checked',ps[i].getAttribute('data-v')===about?'true':'false'); } }
+  (function(){ var ps=document.querySelectorAll('#aboutPills .apill'); for(var i=0;i<ps.length;i++){ ps[i].addEventListener('click',function(){ about=this.getAttribute('data-v'); paintAbout(); }); } paintAbout(); })();
   (function(){
     var m=TYPE_META[type];
     document.getElementById('bkEyebrow').textContent=m.eyebrow;
@@ -263,6 +284,7 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
     document.getElementById('confirmBtn').textContent=m.cta;
     document.title=m.h1+' · AI Wizardry';
     if(paid) document.getElementById('paidBar').style.display='flex';
+    if(type!=='alignment'){ document.getElementById('aboutWrap').style.display='none'; }
   })();
   var MONTHS={}, now=new Date();
   var view={y:now.getFullYear(), m:now.getMonth()};
@@ -332,12 +354,13 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
     var btn=this, miss=[];
     if(!sel.date) miss.push('a day'); if(!sel.slot) miss.push('a time');
     if(!name) miss.push('your name'); if(!EMAIL.test(email)) miss.push('a valid email');
+    if(type==='alignment'&&!about) miss.push('what the call is about');
     if(miss.length){ err.textContent='Still needed: '+miss.join(', ')+'.'; err.style.display=''; return; }
     err.style.display='none'; btn.disabled=true; btn.textContent='Casting…';
-    fetch(API_BOOK,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:type,start:sel.slot.start,name:name,email:email,notes:'[AI Wizardry] '+notes})})
+    fetch(API_BOOK,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:type,start:sel.slot.start,name:name,email:email,notes:'[AI Wizardry] '+notes,source:'aiw',about:(type==='alignment'&&about)?ABOUT_LABEL[about]:'',path:(window.AIW_TRACK?window.AIW_TRACK.trail():'')})})
       .then(function(r){return r.json();}).then(function(j){
         btn.disabled=false; btn.textContent=TYPE_META[type].cta;
-        if(j.ok){ document.getElementById('whenLabel').textContent=j.human||(sel.dayLabel+' · '+sel.slot.label+' PT'); document.getElementById('bookUI').style.display='none'; document.getElementById('stage-success').style.display=''; if(paid) document.getElementById('bookAnother').style.display=''; }
+        if(j.ok){ try{ window.AIW_TRACK&&window.AIW_TRACK.send({t:'booked',c:type,a:about}); }catch(e){} document.getElementById('whenLabel').textContent=j.human||(sel.dayLabel+' · '+sel.slot.label+' PT'); document.getElementById('bookUI').style.display='none'; document.getElementById('stage-success').style.display=''; if(paid) document.getElementById('bookAnother').style.display=''; }
         else if(j.error==='slot_taken'){ err.textContent='That exact moment was just claimed — pick another time.'; err.style.display=''; delete MONTHS[ym(view.y,view.m)]; sel.slot=null; updateSummary(); fetchMonth(ym(view.y,view.m)).then(function(md){ renderCal(); renderTimes(md.dayMap[sel.date]); }); }
         else{ err.textContent='Something slipped — try once more.'; err.style.display=''; }
       }).catch(function(){ btn.disabled=false; btn.textContent=TYPE_META[type].cta; err.textContent='The connection wavered — try again.'; err.style.display=''; });
@@ -359,6 +382,25 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
     document.addEventListener('click',function(){dd.classList.remove('open');db.setAttribute('aria-expanded','false');});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'){dd.classList.remove('open');db.setAttribute('aria-expanded','false');}});
   }
+})();
+</script>
+<script>
+(function(){var U='https://64-181-232-186.nip.io/webhook/aiw-track-3b7e1c';
+ var p=(location.pathname.split('/').pop()||'index.html').replace(/\.html$/,'')||'index';
+ var ss=null;try{ss=window.sessionStorage;}catch(e){}
+ function g(k){try{return ss?ss.getItem(k)||'':'';}catch(e){return '';}}function s(k,v){try{if(ss)ss.setItem(k,v);}catch(e){}}
+ var sid=g('aiw_sid');if(!sid){sid=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);s('aiw_sid',sid);}
+ var tr=g('aiw_trail'),parts=tr?tr.split('>'):[];if(parts[parts.length-1]!==p){parts.push(p);if(parts.length>12)parts=parts.slice(-12);tr=parts.join('>');s('aiw_trail',tr);}
+ var q=new URLSearchParams(location.search),utm=['utm_source','utm_medium','utm_campaign','ref'].filter(function(k){return q.get(k);}).map(function(k){return k+'='+q.get(k);}).join('&');
+ if(utm)s('aiw_utm',utm);else utm=g('aiw_utm');
+ var ref='';try{ref=document.referrer?new URL(document.referrer).hostname:'';}catch(e){}if(ref===location.hostname)ref='';
+ function send(o){o.p=p;o.s=sid;o.tr=tr;o.r=ref;o.u=utm;var b=JSON.stringify(o);
+   try{if(navigator.sendBeacon&&navigator.sendBeacon(U,new Blob([b],{type:'text/plain'})))return;}catch(e){}
+   try{fetch(U,{method:'POST',headers:{'Content-Type':'text/plain'},body:b,keepalive:true});}catch(e){}}
+ send({t:'pv'});
+ document.addEventListener('click',function(e){var t=e.target;if(!t||!t.closest)return;var a=t.closest('a.btn,button.btn,a[href*="book.html"],a[href*="connect.html"]');if(!a)return;
+   var h=a.getAttribute('href')||'',m=/about=([\w-]+)/.exec(h);send({t:'cta',c:(a.textContent||'').trim().slice(0,80),h:h,a:m?m[1]:''});},true);
+ window.AIW_TRACK={send:send,sid:sid,trail:function(){return tr;},page:p};
 })();
 </script>
 </body>
