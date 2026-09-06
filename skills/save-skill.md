@@ -20,18 +20,18 @@ Walk back through the conversation and collect everything that exists ONLY here 
 - **Work produced** — drafts, files, code, plans, lists (make sure files were actually created/delivered, not just shown in chat).
 - **Unfinished work** — things you said you'd do but didn't finish, and the next step for each.
 - **Waiting on the user** — things only they can do (send something, approve something, decide something). These don't block closing — but list them so nothing is forgotten.
-- **Lessons** — corrections or preferences that should change how Claude works from now on (see Step 4).
+- **Lessons** — corrections or preferences that should change how you (the assistant) work from now on (see Step 4).
 
 ## Step 3 — Persist to the best available home
 
 Save each item using the best option this account actually has, in this order. On the FIRST run ever, briefly tell the user which homes you found and are using.
 
-1. **Claude memory** (if this account has the memory feature): store durable facts, preferences, and project status there — it's kept by Claude in the cloud and follows the user across chats and devices with zero setup. This is the preferred home for facts and preferences.
-2. **A connected folder** (if one is connected, or the user connects one when you offer): keep a folder called `Claude HQ` with two files, and always read the current file before editing it — update in place, never blindly overwrite:
+1. **Built-in memory** (Claude memory · ChatGPT Memory · Gemini Saved info — whichever this assistant has): store durable facts, preferences, and project status there — it follows the user across chats and devices with zero setup. This is the preferred home for facts and preferences.
+2. **A connected folder** (if one is connected, or the user connects one when you offer): keep a folder called `AI HQ` with two files, and always read the current file before editing it — update in place, never blindly overwrite:
    - `RESUME.md` — one section per open topic: what's done, what's in progress, the exact next step, and any context (drafts, values, decisions) that would otherwise be lost. This is what makes "continue" work later.
    - `NOTES.md` — durable facts and reference info, one topic per section, newest updates replacing old ones in place.
 3. **The user's own connected tools** (Notion, Google Drive, GitHub, etc.), if they've told you where things should live — honor their setup over the defaults above.
-4. **No storage available at all?** Print a compact **💾 SAVE BLOCK** in the chat — a short fenced block with the resume section from `RESUME.md` format — and tell the user: "Copy this somewhere safe (notes app, doc, email to yourself). Paste it into any new chat to continue." Then offer to set up a `Claude HQ` folder so next time is automatic.
+4. **No storage available at all?** Print a compact **💾 SAVE BLOCK** in the chat — a short fenced block with the resume section from `RESUME.md` format — and tell the user: "Copy this somewhere safe (notes app, doc, email to yourself). Paste it into any new chat to continue." Then offer to set up an `AI HQ` folder (or a Project / Gem that holds these two notes) so next time is automatic.
 
 Do the saving yourself, immediately — don't ask "want me to save this?". Only pause for things that are genuinely the user's (sending messages, deleting things, judgment calls).
 
@@ -52,8 +52,8 @@ Keep the whole response short: the verdict, a 3–5 line log of what was saved a
 
 ## Long or heavy chats — bonus handoff prompt
 
-If this chat has been long or heavy (multi-hour, lots of steps, second+ save, or things feel slow), ALSO output a short ready-to-paste prompt under the header **"🆕 Fresh-chat prompt (paste into a new chat):"** — a fenced block that names the topic, says where the saved state lives (memory / `Claude HQ/RESUME.md` / the save block), lists the remaining tasks as a numbered queue, and ends with "Continue from where you left off." Long chats slow Claude down; a fresh chat with this prompt keeps full speed.
+If this chat has been long or heavy (multi-hour, lots of steps, second+ save, or things feel slow), ALSO output a short ready-to-paste prompt under the header **"🆕 Fresh-chat prompt (paste into a new chat):"** — a fenced block that names the topic, says where the saved state lives (memory / `AI HQ/RESUME.md` / the save block), lists the remaining tasks as a numbered queue, and ends with "Continue from where you left off." Long chats slow any assistant down; a fresh chat with this prompt keeps full speed.
 
 ## Resuming
 
-When the user says **"continue"** (or "resume", "pick up where we left off") in a fresh chat: check Claude memory and `Claude HQ/RESUME.md` (or ask for their save block). If exactly one topic is open, resume it and execute its next step. If several are open, list them and ask which.
+When the user says **"continue"** (or "resume", "pick up where we left off") in a fresh chat: check built-in memory and `AI HQ/RESUME.md` (or ask for their save block). If exactly one topic is open, resume it and execute its next step. If several are open, list them and ask which.
