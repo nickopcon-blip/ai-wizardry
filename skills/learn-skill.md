@@ -31,7 +31,7 @@ When drafting emails for me, keep them under 100 words, open with the point (no 
 
 Then one line telling them how to make it stick:
 
-> To make this permanent, paste it into your custom instructions (add it below whatever's already there) — Claude: **Settings → Profile → Instructions for Claude** · ChatGPT: **Settings → Personalization → Custom instructions** · Gemini: **Settings → Saved info**. Or just tell me **"remember this"** and I'll store it in memory.
+> To make this permanent, paste it into your custom instructions (add it below whatever's already there) — Claude: **Settings → General → Instructions for Claude** · ChatGPT: **Settings → Personalization → Custom instructions** · Gemini: **Settings → Personal Intelligence → Instructions for Gemini**. Or just tell me **"remember this"** and I'll store it in memory.
 
 ## Rules
 
