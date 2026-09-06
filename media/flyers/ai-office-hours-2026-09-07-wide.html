@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>AI Office Hours flyer wide</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#05060e;overflow:hidden;width:100%;height:100%}
+#bg{position:fixed;inset:0;width:100vw;height:100vh}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;gap:6vw;
+  font-family:'Space Grotesk',system-ui,sans-serif;color:#e8ecff;padding:4vh 5vw}
+#left{text-align:left;max-width:56vw}
+.brand{font-size:2.4vh;font-weight:500;letter-spacing:.42em;color:#22d3ee;margin-bottom:.6vh}
+.rule{width:26vh;height:2px;background:#22d3ee;margin-bottom:2.4vh}
+h1{font-size:8.6vh;font-weight:700;line-height:1.02;margin:0 0 1.4vh}
+.sub{font-size:3.1vh;font-weight:500;letter-spacing:.2em;color:#22d3ee;margin-bottom:3vh}
+.panel{border:2px solid #3c5082;border-radius:2.2vh;background:rgba(14,17,34,.82);padding:2.2vh 3vh;display:inline-block;margin-bottom:3vh}
+.day{font-size:2.9vh;font-weight:500;letter-spacing:.09em}
+.time{font-size:4.9vh;font-weight:700;color:#22d3ee;line-height:1.15}
+.time2{font-size:2.6vh;color:#96aad2}
+.tag{font-size:3.4vh;font-weight:300;line-height:1.3}
+#right{text-align:center}
+#qrp{background:#fff;border-radius:2vh;padding:2vh;line-height:0}
+.scan{font-size:2.3vh;font-weight:500;letter-spacing:.3em;color:#22d3ee;margin-top:1.8vh;text-indent:.3em}
+</style></head><body>
+<canvas id="bg"></canvas>
+<div id="wrap">
+  <div id="left">
+    <div class="brand">AI WIZARDRY</div><div class="rule"></div>
+    <h1>AI OFFICE<br>HOURS</h1>
+    <div class="sub">FREE ONLINE CALL</div>
+    <div class="panel">
+      <div class="day">MONDAY, SEPTEMBER 7</div>
+      <div class="time">3:30 to 4:30 PM PT</div>
+      <div class="time2">6:30 to 7:30 PM ET</div>
+    </div>
+    <div class="tag">Bring a business problem.<br>We work it live.</div>
+  </div>
+  <div id="right"><div id="qrp"></div><div class="scan">SCAN TO REGISTER</div></div>
+</div>
+<script>
+var QR="0000000000000000000000000000000000000,0000000000000000000000000000000000000,0011111110001101000101101100111111100,0010000010010101110100101000100000100,0010111010100001000110011100101110100,0010111010101010111001000110101110100,0010111010110101010010010110101110100,0010000010110011111010110000100000100,0011111110101010101010101010111111100,0000000000101010010010110010000000000,0010111110001111110111001110111110000,0000011001100000001011110100110110100,0000111111000010011010000000101011000,0011100000011000111000111110101111100,0000000010010100010011001101001101100,0001101101101010111101110100100011100,0001001011000000100100000011100111000,0011001000111010001011011111111110000,0011111011111110001100001011011000100,0011101000001010101111100100110110100,0000111010011111010100001000011010000,0011010001100111110111011111011111100,0000010111000101001000101001011101100,0010011100110001010011100101100000100,0010011010101111011100101011101111000,0010010000111100110001111000100010000,0010000111011000110101001011111001000,0000000000101010001011100010001010100,0011111110010111110010110110101011000,0010000010111111111000110110001111000,0010111010111111010011001011111100100,0010111010110010011101100111001101100,0010111010100101000010001000110110000,0010000010000111001001110000001110000,0011111110110011101100000110110101000,0000000000000000000000000000000000000,0000000000000000000000000000000000000".split(",");
+var cv=document.getElementById('bg');
+function paint(){
+  var W=cv.width=innerWidth, H=cv.height=innerHeight, x=cv.getContext('2d');
+  x.fillStyle='#05060e';x.fillRect(0,0,W,H);
+  function blob(cx,cy,r,c){var g=x.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,c);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,W,H);}
+  blob(W*.14,H*.20,H*1.05,'rgba(139,92,246,.32)');
+  blob(W*.86,H*.30,H*1.00,'rgba(34,211,238,.20)');
+  blob(W*.50,H*1.02,H*1.10,'rgba(80,30,140,.34)');
+  blob(W*.78,H*.80,H*.80,'rgba(34,211,238,.13)');
+  var s=99,rnd=function(){s=s*16807%2147483647;return s/2147483647;};
+  var n=Math.round(W*H/1400);
+  for(var i=0;i<n;i++){var px=rnd()*W,py=rnd()*H,r=rnd()<.82?rnd()*1.2:rnd()*2.2;
+    x.fillStyle='rgba(226,236,255,'+(.25+rnd()*.75)+')';x.beginPath();x.arc(px,py,r,0,7);x.fill();}
+}
+paint(); addEventListener('resize',paint);
+function drawQR(){
+  var box=Math.round(innerHeight*0.34), N=QR.length, K=Math.max(3,Math.floor(box/N)), side=N*K;
+  var qc=document.createElement('canvas');qc.width=qc.height=side;
+  var q=qc.getContext('2d');q.fillStyle='#fff';q.fillRect(0,0,side,side);q.fillStyle='#000';
+  for(var r=0;r<N;r++)for(var c=0;c<N;c++)if(QR[r][c]==='1')q.fillRect(c*K,r*K,K,K);
+  qc.style.cssText='width:'+side+'px;height:'+side+'px;display:block';
+  var p=document.getElementById('qrp');p.innerHTML='';p.appendChild(qc);
+}
+drawQR(); addEventListener('resize',drawQR);
+document.title='FLYER WIDE READY';
+</script></body></html>
