@@ -159,6 +159,17 @@ html[data-theme="light"] .navdropmenu a{background:transparent;border-color:tran
 html[data-theme="light"] .homecta{background:rgba(255,255,255,.9);border-color:rgba(109,40,217,.22)}
 html[data-theme="light"] .homecta .btn.ghost{background:rgba(255,255,255,.85);border-color:rgba(14,116,144,.45)}
 @media (max-width:560px){.homecta .ctarow{flex-direction:column;align-items:stretch}.homecta .btn{text-align:center}}
+/* ── mobile nav: one row, bigger tap targets, 2-line labels, compact theme circle ── */
+@media (max-width:760px){
+  .navwrap{padding:.55rem .5rem .5rem;gap:.45rem .3rem;justify-content:center}
+  .navlinks{flex-wrap:nowrap;gap:.3rem;width:100%;justify-content:center;align-items:stretch}
+  .navlinks a,.navdropbtn{font-size:.66rem;letter-spacing:.04em;padding:0 .55rem;height:40px;min-height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:1.25rem;line-height:1.15;text-align:center;white-space:nowrap}
+  .navlinks a.nav2{white-space:normal;max-width:5rem}
+  .navdrop{display:inline-flex}
+  .navdropmenu a{height:auto;min-height:40px;justify-content:flex-start;padding:.5rem .8rem;border-radius:.45rem;white-space:nowrap}
+  .navlinks .tmode{width:40px;height:40px;min-height:40px;margin-left:0;flex:0 0 40px;padding:0;border-radius:50%;gap:0}
+  .navlinks .tmode .tw{display:none}.navlinks .tmode .ti{font-size:1.15rem}
+}
 </style>
 <script>(function(){try{if(localStorage.getItem('aiw-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})();</script>
 </head>
@@ -167,7 +178,7 @@ html[data-theme="light"] .homecta .btn.ghost{background:rgba(255,255,255,.85);bo
   <div class="navwrap">
     <a class="navbrand" href="index.html"><span class="nb">✦</span>AI WIZARDRY</a>
     <div class="navlinks">
-      <a href="index.html">Office Hours</a>
+      <a class="nav2" href="index.html">Office Hours</a>
       <div class="navdrop" id="navdrop">
         <button class="navdropbtn" id="navdropbtn" aria-expanded="false" aria-haspopup="true">Offerings <span class="caret">▾</span></button>
         <div class="navdropmenu">
@@ -177,7 +188,7 @@ html[data-theme="light"] .homecta .btn.ghost{background:rgba(255,255,255,.85);bo
         </div>
       </div>
       <a href="connect.html">Connect</a>
-      <a href="free-upgrades.html">Free Upgrades</a>
+      <a class="nav2" href="free-upgrades.html">Free Upgrades</a>
       <button class="tmode" id="themeBtn" aria-label="Switch theme"><span class="ti">☀</span><span class="tw">Light</span></button>
     </div>
   </div>
