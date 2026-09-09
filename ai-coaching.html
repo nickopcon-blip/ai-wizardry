@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Coaching · AI Wizardry</title>
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🤖</text></svg>'>
-<meta name="description" content="1:1 AI coaching at $75/hr founding rate. Hands-on screen-share sessions from your first prompt to your own working automations — no jargon, no prerequisites.">
+<meta name="description" content="1:1 AI coaching. Your first 10 hours at the $75/hr founding rate, then $200/hr. Hands-on screen-share sessions from your first prompt to your own working automations, no jargon, no prerequisites.">
 <meta property="og:title" content="AI Coaching · AI Wizardry">
-<meta property="og:description" content="Start from zero. Leave with automations that run while you sleep. $75/hr founding rate.">
+<meta property="og:description" content="Start from zero. Leave with automations that run while you sleep. First 10 hours at $75/hr, then $200/hr.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -139,6 +139,10 @@ html[data-theme="light"] .priceblock{background:rgba(255,255,255,.94);border-col
 .priceblock .amt span{font-size:1.1rem;font-weight:400;color:var(--dim)}
 .priceblock .sub{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--dim);margin-top:.7rem}
 .priceblock .after{font-size:.88rem;color:var(--faint);margin-top:1.1rem;line-height:1.6}
+.priceblock .then{margin-top:1.15rem;padding-top:1.05rem;border-top:1px dashed rgba(251,191,36,.3)}
+.priceblock .then .amt2{font-family:var(--display);font-weight:700;font-size:1.6rem;line-height:1;color:var(--ink)}
+.priceblock .then .amt2 span{font-size:.9rem;font-weight:400;color:var(--dim)}
+.priceblock .then .sub2{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--dim);margin-top:.5rem}
 .btn.neon{background:linear-gradient(120deg,var(--neon),#7ee8fa);color:#04222b;font-weight:600;box-shadow:0 0 26px -8px rgba(34,211,238,.75)}
 .btn.neon:hover{box-shadow:0 0 44px -6px rgba(34,211,238,1)}
 .steps{counter-reset:s;display:flex;flex-direction:column;gap:.8rem;margin-top:1.6rem;max-width:44rem}
@@ -296,8 +300,12 @@ html[data-theme="light"] .tmode:hover{background:linear-gradient(120deg,#2c1268,
     <div class="priceblock">
       <div class="tag">1:1 Coaching · Screen-share</div>
       <div class="amt">$75<span> / hour</span></div>
-      <div class="sub">Founding rate — your first 40 hours</div>
-      <p class="after">Beyond your first 40 hours we move to a monthly retainer or a project rate, shaped by what we're building. Buy hours in whatever size block suits you — there's no package to commit to and nothing expires.</p>
+      <div class="sub">Founding rate · your first 10 hours</div>
+      <div class="then">
+        <div class="amt2">$200<span> / hour</span></div>
+        <div class="sub2">Standard rate · after your first 10 hours</div>
+      </div>
+      <p class="after">Your first 10 hours of AI coaching are $75/hr. After those 10 hours, coaching continues at my standard rate of $200/hr. Longer engagements can move to a monthly retainer or a project rate instead, shaped by what we're building. Buy hours in whatever size block suits you. There's no package to commit to and nothing expires.</p>
       <button class="btn neon" style="border:none;cursor:pointer;width:100%;margin:1.3rem 0 .6rem" onclick="openCheckout('ai-coaching')">Buy Coaching Hours ✦</button>
       <a class="btn ghost" href="book.html?about=ai-coaching" style="width:100%;text-align:center">Or Book a Free Call First ✦</a>
     </div>
