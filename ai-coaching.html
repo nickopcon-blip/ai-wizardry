@@ -143,6 +143,26 @@ html[data-theme="light"] .priceblock{background:rgba(255,255,255,.94);border-col
 .priceblock .then .amt2{font-family:var(--display);font-weight:700;font-size:1.6rem;line-height:1;color:var(--ink)}
 .priceblock .then .amt2 span{font-size:.9rem;font-weight:400;color:var(--dim)}
 .priceblock .then .sub2{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--dim);margin-top:.5rem}
+/* ── rate selector + email (2026-09-10: founding hours are capped per person, so checkout needs an email) ── */
+.rates{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.4rem 0 .9rem;text-align:left}
+@media (max-width:480px){.rates{grid-template-columns:1fr}}
+.rate{position:relative;cursor:pointer;border:1px solid rgba(139,92,246,.3);border-radius:10px;padding:.95rem 1rem;background:rgba(5,6,14,.55);transition:border-color .25s,box-shadow .25s}
+.rate input{position:absolute;opacity:0;pointer-events:none}
+.rate .rk{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.rate .rp{font-family:var(--display);font-weight:700;font-size:1.45rem;line-height:1.1;margin:.3rem 0 .2rem;color:var(--ink)}
+.rate .rp span{font-size:.8rem;font-weight:400;color:var(--dim)}
+.rate .rd{font-size:.8rem;color:var(--dim);line-height:1.45}
+.rate:hover{border-color:rgba(34,211,238,.5)}
+.rate.on{border-color:var(--gold);box-shadow:0 0 28px -10px rgba(251,191,36,.8)}
+.rate.on .rk,.rate.on .rp{color:var(--gold)}
+.emailrow{margin:.4rem 0 0;text-align:left}
+.emailrow label{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:.4rem}
+.emailrow input{width:100%;font-family:var(--body);font-size:1rem;color:var(--ink);background:rgba(5,6,14,.65);border:1px solid rgba(139,92,246,.35);border-radius:8px;padding:.8rem .95rem;outline:none;transition:border-color .25s,box-shadow .25s}
+.emailrow input:focus{border-color:var(--neon);box-shadow:0 0 22px -10px rgba(34,211,238,.9)}
+.emailrow input.bad{border-color:#f87171}
+.emailrow .eh{font-size:.78rem;color:var(--faint);margin-top:.45rem;line-height:1.5}
+html[data-theme="light"] .rate,html[data-theme="light"] .emailrow input{background:rgba(245,244,251,.9);border-color:rgba(109,40,217,.25)}
+#coNote{display:none;font-family:var(--body);font-size:.85rem;line-height:1.5;color:#3b3560;background:#f3efff;border-bottom:1px solid #e5deff;padding:.7rem 1rem}
 .btn.neon{background:linear-gradient(120deg,var(--neon),#7ee8fa);color:#04222b;font-weight:600;box-shadow:0 0 26px -8px rgba(34,211,238,.75)}
 .btn.neon:hover{box-shadow:0 0 44px -6px rgba(34,211,238,1)}
 .steps{counter-reset:s;display:flex;flex-direction:column;gap:.8rem;margin-top:1.6rem;max-width:44rem}
@@ -306,7 +326,18 @@ html[data-theme="light"] .tmode:hover{background:linear-gradient(120deg,#2c1268,
         <div class="sub2">Standard rate · after your first 10 hours</div>
       </div>
       <p class="after">Your first 10 hours of AI coaching are $75/hr. After those 10 hours, coaching continues at my standard rate of $200/hr. Longer engagements can move to a monthly retainer or a project rate instead, shaped by what we're building. Buy hours in whatever size block suits you. There's no package to commit to and nothing expires.</p>
-      <button class="btn neon" style="border:none;cursor:pointer;width:100%;margin:1.3rem 0 .6rem" onclick="openCheckout('ai-coaching')">Buy Coaching Hours ✦</button>
+      <div class="rates" id="rates">
+        <label class="rate on" data-product="ai-coaching"><input type="radio" name="rate" value="ai-coaching" checked>
+          <div class="rk">Founding rate</div><div class="rp">$75<span> / hour</span></div><div class="rd">Your first 10 hours. Pick how many inside checkout.</div></label>
+        <label class="rate" data-product="ai-coaching-standard"><input type="radio" name="rate" value="ai-coaching-standard">
+          <div class="rk">Standard rate</div><div class="rp">$200<span> / hour</span></div><div class="rd">Hours 11 and up, or if you'd rather skip the founding tier.</div></label>
+      </div>
+      <div class="emailrow">
+        <label for="coEmail">Your email</label>
+        <input type="email" id="coEmail" autocomplete="email" placeholder="you@example.com" required>
+        <div class="eh">Founding hours are tracked per person by email, 10 in total. Use the same email each time you buy. If you've already used your 10, checkout switches to the standard rate on its own.</div>
+      </div>
+      <button class="btn neon" id="coBuy" style="border:none;cursor:pointer;width:100%;margin:1.3rem 0 .6rem">Buy Coaching Hours ✦</button>
       <a class="btn ghost" href="book.html?about=ai-coaching" style="width:100%;text-align:center">Or Book a Free Call First ✦</a>
     </div>
   </section>
@@ -359,6 +390,7 @@ html[data-theme="light"] .tmode:hover{background:linear-gradient(120deg,#2c1268,
 <div id="coOverlay" role="dialog" aria-modal="true">
   <div id="coPanel">
     <div id="coHead"><span class="t">✦ Secure Checkout · Stripe</span><button id="coClose" aria-label="Close">✕</button></div>
+    <div id="coNote"></div>
     <div id="coMsg">Opening secure checkout…</div>
     <div id="coMount"></div>
   </div>
@@ -367,21 +399,49 @@ html[data-theme="light"] .tmode:hover{background:linear-gradient(120deg,#2c1268,
 var CO_API='https://64-181-232-186.nip.io/webhook/gateway-checkout-49f2b7';
 var CO_PK='pk_live_51TNDUt0SXGAfXpoK8dwaSWIwOLhKlUqcMJlvFvZTQ2WnzRJbYwNtsOExhBiNq5ztBly2mcIUwhc81peZ2nLLOLIq00mdNKNMbQ';
 var coInstance=null, coStripe=null;
-function coCleanup(){ if(coInstance){try{coInstance.destroy();}catch(e){} coInstance=null;} document.getElementById('coMount').innerHTML=''; document.getElementById('coOverlay').style.display='none'; document.body.style.overflow=''; }
-function coFail(){ var m=document.getElementById('coMsg'); m.innerHTML='Checkout hiccuped — try again in a moment, or email <a href="mailto:nick.opcon@gmail.com">nick.opcon@gmail.com</a>.'; m.style.display=''; }
-function openCheckout(product){
+function coCleanup(){ if(coInstance){try{coInstance.destroy();}catch(e){} coInstance=null;} document.getElementById('coMount').innerHTML=''; document.getElementById('coNote').style.display='none'; document.getElementById('coOverlay').style.display='none'; document.body.style.overflow=''; }
+function coFail(err){ var m=document.getElementById('coMsg');
+  var t = err==='ledger_unavailable' ? 'I couldn\'t check your founding hours just now, so checkout is paused rather than guessing. Try again in a minute, or email <a href="mailto:nick.opcon@gmail.com">nick.opcon@gmail.com</a>.'
+        : err==='email_required' ? 'Add your email above first. That\'s how your 10 founding hours are tracked.'
+        : 'Checkout hiccuped. Try again in a moment, or email <a href="mailto:nick.opcon@gmail.com">nick.opcon@gmail.com</a>.';
+  m.innerHTML=t; m.style.display=''; }
+function coShowNote(j){ var n=document.getElementById('coNote'); var t='';
+  if(j.founding_qty>0 && j.standard_qty>0) t='You have '+j.founding_remaining+' founding hour'+(j.founding_remaining===1?'':'s')+' left at $75. Anything past that in this order is at the $200 standard rate.';
+  else if(j.standard_qty>0 && j.founding_used>=10) t='Your 10 founding hours are used up, so this checkout is at the $200/hr standard rate.';
+  else if(j.founding_qty>0 && typeof j.founding_remaining==='number') t='Founding rate: '+j.founding_remaining+' of your 10 founding hours '+(j.founding_remaining===1?'is':'are')+' still available at $75/hr.';
+  if(t){ n.textContent=t; n.style.display='block'; } else { n.style.display='none'; } }
+function openCheckout(product, email){
   var ov=document.getElementById('coOverlay'); ov.style.display='flex'; document.body.style.overflow='hidden';
   var msg=document.getElementById('coMsg'); msg.textContent='Opening secure checkout…'; msg.style.display='';
+  document.getElementById('coNote').style.display='none';
   function start(){
     if(!coStripe) coStripe=Stripe(CO_PK);
-    fetch(CO_API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({product:product,qty:1})})
+    fetch(CO_API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({product:product,qty:1,email:email||''})})
       .then(function(r){return r.json();})
-      .then(function(j){ if(!j.ok||!j.client_secret){ coFail(); return; }
+      .then(function(j){ if(!j.ok||!j.client_secret){ coFail(j&&j.error); return; }
+        coShowNote(j);
         return coStripe.initEmbeddedCheckout({clientSecret:j.client_secret}).then(function(co){ coInstance=co; msg.style.display='none'; co.mount('#coMount'); }); })
-      .catch(coFail);
+      .catch(function(){ coFail(); });
   }
   if(window.Stripe){ start(); } else { var s=document.createElement('script'); s.src='https://js.stripe.com/v3/'; s.onload=start; s.onerror=coFail; document.head.appendChild(s); }
 }
+(function(){
+  var rates=document.querySelectorAll('#rates .rate'), emailEl=document.getElementById('coEmail'), buy=document.getElementById('coBuy');
+  if(!buy) return;
+  function pick(){ rates.forEach(function(r){ r.classList.toggle('on', r.querySelector('input').checked); }); }
+  rates.forEach(function(r){ r.addEventListener('change', pick); });
+  try{ var saved=localStorage.getItem('aiw-co-email'); if(saved&&!emailEl.value) emailEl.value=saved; }catch(e){}
+  buy.addEventListener('click', function(){
+    var email=(emailEl.value||'').trim().toLowerCase();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ emailEl.classList.add('bad'); emailEl.focus(); return; }
+    emailEl.classList.remove('bad');
+    try{ localStorage.setItem('aiw-co-email', email); }catch(e){}
+    var sel=document.querySelector('#rates input:checked'); var product=sel?sel.value:'ai-coaching';
+    try{ window.AIW_TRACK&&window.AIW_TRACK.send({t:'cta',c:'Buy Coaching Hours ('+product+')',h:'#checkout',a:'ai-coaching'}); }catch(e){}
+    openCheckout(product, email);
+  });
+  emailEl.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); buy.click(); } });
+})();
 document.getElementById('coClose').addEventListener('click', coCleanup);
 document.getElementById('coOverlay').addEventListener('click', function(e){ if(e.target===this) coCleanup(); });
 </script>
